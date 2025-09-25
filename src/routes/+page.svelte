@@ -1,9 +1,5 @@
 <script>
-    import {
-        addItem,
-        exportVocabulary,
-        importVocabulary,
-    } from "$lib/stores/vocabulary";
+    import { addItem } from "$lib/stores/vocabulary";
 
     // Form fields
     let chineseWord = "";
@@ -84,7 +80,6 @@
 <div class="container">
     <header>
         <h1>Chinese Vocabulary Builder</h1>
-        <p>Add new vocabulary with examples and translations</p>
         <nav>
             <a href="/" class="nav-link active">Add Vocabulary</a>
             <a href="/list" class="nav-link">View All Items</a>
@@ -93,8 +88,6 @@
 
     <form on:submit|preventDefault={handleSubmit} class="vocabulary-form">
         <div class="form-section">
-            <h2>Basic Vocabulary</h2>
-
             <div class="form-group">
                 <label for="chineseWord">Chinese Word/Character:</label>
                 <input
@@ -130,41 +123,33 @@
         </div>
 
         <div class="form-section">
-            <h2>Example Sentence (Optional)</h2>
-
             <div class="form-group">
                 <label for="examplePinyin">Example Sentence (Pinyin):</label>
-                <textarea
+                <input
                     id="examplePinyin"
                     bind:value={examplePinyin}
                     placeholder="nǐ hǎo ma?"
-                    rows="2"
-                ></textarea>
+                />
             </div>
 
             <div class="form-group">
                 <label for="exampleEnglish">Example Sentence (English):</label>
-                <textarea
+                <input
                     id="exampleEnglish"
                     bind:value={exampleEnglish}
-                    placeholder="How are you?"
-                    rows="2"
-                ></textarea>
+                    placeholder="How are you"
+                />
             </div>
 
             <div class="form-group">
                 <label for="wordForWordTranslation"
                     >Word-for-Word Translation:</label
                 >
-                <textarea
+                <input
                     id="wordForWordTranslation"
                     bind:value={wordForWordTranslation}
                     placeholder="you good ?"
-                    rows="2"
-                ></textarea>
-                <small
-                    >Literal translation showing Chinese sentence structure</small
-                >
+                />
             </div>
         </div>
 
@@ -181,26 +166,6 @@
         {/if}
 
         <div class="form-actions">
-            <div class="data-actions">
-                <button
-                    type="button"
-                    on:click={exportVocabulary}
-                    class="secondary"
-                >
-                    📥 Export Backup
-                </button>
-                <label for="import-file" class="secondary button">
-                    📤 Import Backup
-                    <input
-                        id="import-file"
-                        type="file"
-                        accept=".json"
-                        on:change={handleImport}
-                        style="display: none;"
-                    />
-                </label>
-            </div>
-
             <div class="form-buttons">
                 <button type="button" on:click={clearForm} class="secondary">
                     Clear Form

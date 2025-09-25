@@ -94,7 +94,6 @@
 <div class="container">
     <header>
         <h1>My Vocabulary List</h1>
-        <p>Review and manage your Chinese vocabulary</p>
         <nav>
             <a href="/" class="nav-link">Add Vocabulary</a>
             <a href="/list" class="nav-link active">View All Items</a>
@@ -148,7 +147,6 @@
         {/if}
 
         <div class="data-management">
-            <h3>Data Management</h3>
             <div class="data-actions">
                 <button on:click={exportVocabulary} class="secondary">
                     📥 Export Backup
