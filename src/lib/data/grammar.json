@@ -1,0 +1,123 @@
+[
+    {
+        "id": 1,
+        "order": 1,
+        "chinese": "",
+        "pinyin": "nǐ",
+        "english": "You",
+        "examplePinyin": "",
+        "literal": "",
+        "exampleEnglish": "",
+        "createdAt": "2025-09-26T20:58:52.451Z"
+    },
+    {
+        "id": 2,
+        "order": 2,
+        "chinese": "",
+        "pinyin": "wǒ",
+        "english": "I/Me/I am",
+        "examplePinyin": "",
+        "literal": "",
+        "exampleEnglish": "",
+        "createdAt": "2025-09-26T20:58:52.451Z"
+    },
+    {
+        "id": 3,
+        "order": 3,
+        "chinese": "",
+        "pinyin": "tā",
+        "english": "He/Him/She/Her",
+        "examplePinyin": "<span style='color:red'>tā</span> shì wǒ de péngyǒu ",
+        "literal": "<span style='color:red'>he</span> is my friend",
+        "exampleEnglish": "He's my friend",
+        "createdAt": "2025-09-26T20:58:52.451Z"
+    },
+    {
+        "id": 4,
+        "order": 4,
+        "chinese": "",
+        "pinyin": "<i style='color: #666'>pro.+</i> men",
+        "english": "<u>plural pronouns</u><br/>We/Us/You/Them",
+        "examplePinyin": "",
+        "literal": "",
+        "exampleEnglish": "",
+        "createdAt": "2025-09-26T20:58:52.451Z"
+    },
+    {
+        "id": 5,
+        "order": 5,
+        "chinese": "",
+        "pinyin": "zhè",
+        "english": "This",
+        "examplePinyin": "",
+        "literal": "",
+        "exampleEnglish": "",
+        "createdAt": "2025-09-26T20:58:52.451Z"
+    },
+    {
+        "id": 6,
+        "order": 6,
+        "chinese": "",
+        "pinyin": "<i style='color: #666'>pro.+</i> de",
+        "english": "<u>possessive pronouns</u><br/>my/mine/our/ours/your/yours<br/>his/her/hers/their/theirs",
+        "examplePinyin": "<span style='color:red'>wǒ de</span> bǐ",
+        "literal": "<span style='color:red'>my</span> pen",
+        "exampleEnglish": "My pen",
+        "createdAt": "2025-09-26T20:58:52.451Z"
+    },
+    {
+        "id": 7,
+        "order": 7,
+        "chinese": "",
+        "pinyin": "Bù <i style='color: #666'>+Verb.</i>",
+        "english": "don't (negate the verb)",
+        "examplePinyin": "wǒ <span style='color:red'>bù</span> rèn shi nǐ",
+        "literal": "i <span style='color:red'>don't</span> know you",
+        "exampleEnglish": "I don't know you",
+        "createdAt": "2025-09-26T20:58:52.451Z"
+    },
+    {
+        "id": 8,
+        "order": 8,
+        "chinese": "",
+        "pinyin": "Hěn <i style='color: #666'>+Adj.</i>",
+        "english": "<u>description</u><br/>very/quite/rather",
+        "examplePinyin": "zhōngguó <span style='color:red'>hěn</span> dà",
+        "literal": "china <span style='color:red'>very</span> big",
+        "exampleEnglish": "China is big",
+        "createdAt": "2025-09-26T20:58:52.451Z"
+    },
+    {
+        "id": 9,
+        "order": 9,
+        "chinese": "",
+        "pinyin": "shénme",
+        "english": "What?",
+        "examplePinyin": "zhè shì <span style='color:red'>shénme?</span>",
+        "literal": "this is <span style='color:red'>what?</span>",
+        "exampleEnglish": "what is this ?",
+        "createdAt": "2025-09-26T20:58:52.451Z"
+    },
+    {
+        "id": 10,
+        "order": 10,
+        "chinese": "",
+        "pinyin": "shéi",
+        "english": "Who?",
+        "examplePinyin": "tā shì <span style='color:red'>Shéi?</span>",
+        "literal": "he is <span style='color:red'>who?</span>",
+        "exampleEnglish": "who is he ?",
+        "createdAt": "2025-09-26T20:58:52.451Z"
+    },
+    {
+        "id": 11,
+        "order": 11,
+        "chinese": "",
+        "pinyin": "ma?",
+        "english": "yes or no ?",
+        "examplePinyin": "nǐ shì zhōngguó rén <span style='color:red'>ma?</span>",
+        "literal": "you are chinese <span style='color:red'>aren't you ?</span>",
+        "exampleEnglish": "Are you chinese ?",
+        "createdAt": "2025-09-26T20:58:52.451Z"
+    }
+]

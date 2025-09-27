@@ -1,7 +1,10 @@
 <script>
-    import { addItem } from "$lib/stores/vocabulary";
+    import {
+        addItem,
+        exportVocabulary,
+        importVocabulary,
+    } from "$lib/stores/vocabulary";
 
-    // Form fields
     let chineseWord = "";
     let pinyin = "";
     let englishMeaning = "";
@@ -54,19 +57,20 @@
         importError = "";
     }
 
-    async function handleImport(event) {
+    function handleImport(event) {
         const file = event.target.files[0];
         if (!file) return;
 
-        try {
-            await importVocabulary(file);
-            success = "Vocabulary imported successfully!";
-            setTimeout(() => (success = ""), 3000);
-            importError = "";
-        } catch (err) {
-            importError = "Failed to import file. Please check the format.";
-            success = "";
-        }
+        importVocabulary(file)
+            .then(() => {
+                success = "Vocabulary imported successfully!";
+                setTimeout(() => (success = ""), 3000);
+                importError = "";
+            })
+            .catch(() => {
+                importError = "Failed to import file. Please check the format.";
+                success = "";
+            });
 
         // Reset file input
         event.target.value = "";
@@ -93,7 +97,8 @@
                 <input
                     id="chineseWord"
                     type="text"
-                    bind:value={chineseWord}
+                    value={chineseWord}
+                    on:input={(e) => (chineseWord = e.target.value)}
                     placeholder="你好"
                     required
                 />
@@ -104,7 +109,8 @@
                 <input
                     id="pinyin"
                     type="text"
-                    bind:value={pinyin}
+                    value={pinyin}
+                    on:input={(e) => (pinyin = e.target.value)}
                     placeholder="nǐ hǎo"
                     required
                 />
@@ -115,7 +121,8 @@
                 <input
                     id="englishMeaning"
                     type="text"
-                    bind:value={englishMeaning}
+                    value={englishMeaning}
+                    on:input={(e) => (englishMeaning = e.target.value)}
                     placeholder="Hello"
                     required
                 />
@@ -127,7 +134,9 @@
                 <label for="examplePinyin">Example Sentence (Pinyin):</label>
                 <input
                     id="examplePinyin"
-                    bind:value={examplePinyin}
+                    type="text"
+                    value={examplePinyin}
+                    on:input={(e) => (examplePinyin = e.target.value)}
                     placeholder="nǐ hǎo ma?"
                 />
             </div>
@@ -136,8 +145,10 @@
                 <label for="exampleEnglish">Example Sentence (English):</label>
                 <input
                     id="exampleEnglish"
-                    bind:value={exampleEnglish}
-                    placeholder="How are you"
+                    type="text"
+                    value={exampleEnglish}
+                    on:input={(e) => (exampleEnglish = e.target.value)}
+                    placeholder="How are you?"
                 />
             </div>
 
@@ -147,7 +158,9 @@
                 >
                 <input
                     id="wordForWordTranslation"
-                    bind:value={wordForWordTranslation}
+                    type="text"
+                    value={wordForWordTranslation}
+                    on:input={(e) => (wordForWordTranslation = e.target.value)}
                     placeholder="you good ?"
                 />
             </div>
@@ -264,20 +277,20 @@
     }
 
     .nav-link:hover {
-        background-color: #e9ecef;
+        background: #e9ecef;
         color: #2c3e50;
         transform: translateY(-2px);
     }
 
     .nav-link.active {
-        background-color: #e74c3c;
+        background: #e74c3c;
         color: white;
         border-color: #e74c3c;
         box-shadow: 0 4px 8px rgba(231, 76, 60, 0.3);
     }
 
     .vocabulary-form {
-        background-color: #f1ad6c;
+        background: #f1ad6c;
         padding: 2rem;
         border-radius: 12px;
         box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
@@ -528,7 +541,6 @@
         border: 2px dashed #ddd;
     }
 
-    /* Responsive design */
     @media (max-width: 768px) {
         .container {
             padding: 1rem;
@@ -612,50 +624,5 @@
         .chinese-preview {
             font-size: 1.8rem;
         }
-    }
-
-    /* Animation for smooth transitions */
-    .preview-item,
-    .message {
-        animation: fadeIn 0.3s ease-in-out;
-    }
-
-    @keyframes fadeIn {
-        from {
-            opacity: 0;
-            transform: translateY(10px);
-        }
-        to {
-            opacity: 1;
-            transform: translateY(0);
-        }
-    }
-
-    /* Focus styles for accessibility */
-    button:focus,
-    input:focus,
-    textarea:focus,
-    .button:focus {
-        outline: 2px solid #e74c3c;
-        outline-offset: 2px;
-    }
-
-    /* Custom scrollbar for textareas */
-    textarea::-webkit-scrollbar {
-        width: 8px;
-    }
-
-    textarea::-webkit-scrollbar-track {
-        background: #f1f1f1;
-        border-radius: 4px;
-    }
-
-    textarea::-webkit-scrollbar-thumb {
-        background: #c1c1c1;
-        border-radius: 4px;
-    }
-
-    textarea::-webkit-scrollbar-thumb:hover {
-        background: #a8a8a8;
     }
 </style>

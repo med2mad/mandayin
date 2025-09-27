@@ -1,0 +1,101 @@
+[
+    {
+        "id": 1,
+        "order": 3,
+        "chineseWord": "你好",
+        "pinyin": "nǐ hǎo",
+        "englishMeaning": "Hello",
+        "examplePinyin": "nǐ hǎo ma?",
+        "exampleEnglish": "How are you?",
+        "wordForWordTranslation": "You good right?",
+        "createdAt": "2025-09-26T20:58:52.451Z"
+    },
+    {
+        "id": 2,
+        "order": 1.3,
+        "chineseWord": "谢谢",
+        "pinyin": "xiè xie",
+        "englishMeaning": "Thank you",
+        "examplePinyin": "xiè xie nǐ",
+        "exampleEnglish": "Thank you",
+        "wordForWordTranslation": "Thank you",
+        "createdAt": "2025-09-26T20:59:52.451Z"
+    },
+    {
+        "id": 3,
+        "order": 1.3,
+        "chineseWord": "再见",
+        "pinyin": "zài jiàn",
+        "englishMeaning": "<b style='color:red'>Goodbye</b>",
+        "examplePinyin": "míng tiān zài jiàn",
+        "exampleEnglish": "See you tomorrow",
+        "wordForWordTranslation": "Again see",
+        "createdAt": "2025-09-26T21:00:52.451Z"
+    },
+    {
+        "id": 4,
+        "order": 3,
+        "chineseWord": "你好",
+        "pinyin": "nǐ hǎo",
+        "englishMeaning": "Hello",
+        "examplePinyin": "nǐ hǎo ma?",
+        "exampleEnglish": "How are you?",
+        "wordForWordTranslation": "You good right?",
+        "createdAt": "2025-09-26T20:58:52.451Z"
+    },
+    {
+        "id": 5,
+        "order": 1.3,
+        "chineseWord": "谢谢",
+        "pinyin": "xiè xie",
+        "englishMeaning": "Thank you",
+        "examplePinyin": "xiè xie nǐ",
+        "exampleEnglish": "Thank you",
+        "wordForWordTranslation": "Thank you",
+        "createdAt": "2025-09-26T20:59:52.451Z"
+    },
+    {
+        "id": 6,
+        "order": 1.3,
+        "chineseWord": "再见",
+        "pinyin": "zài jiàn",
+        "englishMeaning": "<b style='color:red'>Goodbye</b>",
+        "examplePinyin": "Míng tiān zài jiàn",
+        "exampleEnglish": "See you tomorrow",
+        "wordForWordTranslation": "Again see",
+        "createdAt": "2025-09-26T21:00:52.451Z"
+    },
+    {
+        "id": 7,
+        "order": 3,
+        "chineseWord": "你好",
+        "pinyin": "nǐ hǎo",
+        "englishMeaning": "Hello",
+        "examplePinyin": "Nǐ hǎo ma?",
+        "exampleEnglish": "How are you?",
+        "wordForWordTranslation": "You good right?",
+        "createdAt": "2025-09-26T20:58:52.451Z"
+    },
+    {
+        "id": 8,
+        "order": 1.3,
+        "chineseWord": "谢谢",
+        "pinyin": "xiè xie",
+        "englishMeaning": "Thank you",
+        "examplePinyin": "Xiè xie nǐ",
+        "exampleEnglish": "Thank you",
+        "wordForWordTranslation": "Thank you",
+        "createdAt": "2025-09-26T20:59:52.451Z"
+    },
+    {
+        "id": 9,
+        "order": 1.3,
+        "chineseWord": "再见",
+        "pinyin": "zài jiàn",
+        "englishMeaning": "<b style='color:red'>Goodbye</b>",
+        "examplePinyin": "Míng tiān zài jiàn",
+        "exampleEnglish": "See you tomorrow",
+        "wordForWordTranslation": "Again see",
+        "createdAt": "2025-09-26T21:00:52.451Z"
+    }
+]

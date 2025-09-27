@@ -17,8 +17,8 @@ function createPersistentStore(key, defaultValue) {
         }
 
         // Save to localStorage on changes
-        store.subscribe(value => {
-            localStorage.setItem(key, JSON.stringify(value));
+        store.subscribe(($value) => {
+            localStorage.setItem(key, JSON.stringify($value));
         });
     }
 
@@ -28,7 +28,7 @@ function createPersistentStore(key, defaultValue) {
 export const vocabulary = createPersistentStore('chinese-vocabulary', []);
 export const isLoading = writable(false);
 
-// No API calls needed - everything is client-side
+// Add a new item
 export function addItem(newItem) {
     const item = {
         id: Date.now().toString(),
@@ -36,15 +36,17 @@ export function addItem(newItem) {
         createdAt: new Date().toISOString()
     };
 
-    vocabulary.update(items => [...items, item]);
+    vocabulary.update(($vocabulary) => [...$vocabulary, item]);
     return item;
 }
 
+// Delete an item
 export function deleteItem(id) {
-    vocabulary.update(items => items.filter(item => item.id !== id));
+    vocabulary.update(($vocabulary) => $vocabulary.filter(item => item.id !== id));
     return true;
 }
 
+// Load vocabulary (for compatibility)
 export function loadVocabulary() {
     // Nothing to do - data is automatically loaded from localStorage
     isLoading.set(false);
@@ -52,14 +54,16 @@ export function loadVocabulary() {
 
 // Export/Import functionality for backups
 export function exportVocabulary() {
-    const data = JSON.stringify($vocabulary, null, 2);
-    const blob = new Blob([data], { type: 'application/json' });
-    const url = URL.createObjectURL(blob);
-    const a = document.createElement('a');
-    a.href = url;
-    a.download = 'chinese-vocabulary-backup.json';
-    a.click();
-    URL.revokeObjectURL(url);
+    vocabulary.subscribe(($vocabulary) => {
+        const data = JSON.stringify($vocabulary, null, 2);
+        const blob = new Blob([data], { type: 'application/json' });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = 'chinese-vocabulary-backup.json';
+        a.click();
+        URL.revokeObjectURL(url);
+    })();
 }
 
 export function importVocabulary(file) {
