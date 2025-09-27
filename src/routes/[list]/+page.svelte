@@ -1,6 +1,6 @@
 <script>
     import { onMount, tick } from "svelte";
-
+    import { page } from "$app/stores";
     import { dndzone } from "svelte-dnd-action";
     import { flip } from "svelte/animate";
     import { formatPinyin } from "$lib/utils/pinyin";
@@ -11,36 +11,45 @@
     let error = null;
     let cards = true;
 
-    onMount(() => {
+    onMount(async () => {
         try {
-            words = data.x.default.sort((a, b) => a.order - b.order);
+            words = data.x.default;
             loading = false;
         } catch (err) {
             error = err.message;
             loading = false;
         }
 
+        await tick();
         f();
     });
-    async function f() {
-        await tick();
+    function f() {
         document.querySelectorAll("i").forEach((el) => {
             el.style =
                 "color:#666; font-size:1rem; font-family:calibri;font-weight:normal;";
         });
         document.querySelectorAll("b").forEach((el) => {
-            el.style = "color:red;font-weight:normal; ";
+            el.style = "color:red;font-weight:normal;";
         });
     }
-</script>
 
-<svelte:head>
-    <title>Chinese Words</title>
-</svelte:head>
+    function downloadJSON() {
+        const dataStr = JSON.stringify(words, null, 2);
+        const dataBlob = new Blob([dataStr], { type: "application/json" });
+
+        const url = URL.createObjectURL(dataBlob);
+        const link = document.createElement("a");
+        link.href = url;
+        link.download = `${$page.params.list}.json`;
+        link.click();
+        URL.revokeObjectURL(url);
+    }
+</script>
 
 <a href="/grammar" target="_self">Grammar</a>
 <a href="/vocabulary" target="_self">Vocabulary</a>
 <input bind:checked={cards} type="checkbox" id="toggleLayout" />
+<button on:click={downloadJSON}>Download JSON</button>
 
 {#if loading}
     <img src="/spinner.gif" alt="Loading..." />
@@ -52,14 +61,14 @@
         style:flex-direction={cards ? "row" : "column"}
         use:dndzone={{ items: words, flipDurationMs: 100, dropTargetStyle: {} }}
         on:consider={(e) => (words = e.detail.items)}
-        on:finalize={(e) => {
-            words = e.detail.items;
-            words.forEach((word, index) => (word.order = index + 1));
+        on:finalize={(event) => {
+            words = event.detail.items;
             f();
         }}
     >
         {#each words as word, i (word.id)}
             <div
+                data-id={word.id}
                 class="word-card"
                 style:width={cards ? "" : "100%"}
                 animate:flip={{ duration: 300 }}
@@ -83,7 +92,7 @@
                             {@html word.examplePinyin}<br />
                             <em>{@html word.literal}</em>
                         </p>
-                        <p>{word.exampleEnglish}</p>
+                        <p class="en">{word.exampleEnglish}</p>
                     </div>
                 {/if}
             </div>
@@ -133,19 +142,6 @@
         color: #e74c3c;
         text-align: center;
     }
-    /* .info {
-        position: absolute;
-        top: 6px;
-        left: 3px;
-        cursor: default;
-    }
-    .info span {
-        background: #3498db;
-        color: white;
-        padding: 0.25rem 0.75rem;
-        border-radius: 20px;
-        font-weight: bold;
-    } */
     .info {
         position: absolute;
         top: 9px;
@@ -173,5 +169,11 @@
     }
     .example .ch {
         line-height: 1rem;
+    }
+    .example .en {
+        border-top: dashed 1px #9c9c9c;
+        margin-bottom: 0.3rem;
+        padding-top: 0.3rem;
+        font-weight: bold;
     }
 </style>
