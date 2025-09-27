@@ -1,24 +1,37 @@
 <script>
-    import { onMount } from "svelte";
-    import { page } from "$app/stores";
+    import { onMount, tick } from "svelte";
+
     import { dndzone } from "svelte-dnd-action";
     import { flip } from "svelte/animate";
+    import { formatPinyin } from "$lib/utils/pinyin";
 
+    export let data;
     let words = [];
     let loading = true;
     let error = null;
+    let cards = true;
 
-    onMount(async () => {
+    onMount(() => {
         try {
-            const data = await import(`$lib/data/${$page.params.list}.json`);
-            words = data.default.sort((a, b) => a.order - b.order);
+            words = data.x.default.sort((a, b) => a.order - b.order);
             loading = false;
         } catch (err) {
             error = err.message;
             loading = false;
         }
-        window.words = words;
+
+        f();
     });
+    async function f() {
+        await tick();
+        document.querySelectorAll("i").forEach((el) => {
+            el.style =
+                "color:#666; font-size:1rem; font-family:calibri;font-weight:normal;";
+        });
+        document.querySelectorAll("b").forEach((el) => {
+            el.style = "color:red;font-weight:normal; ";
+        });
+    }
 </script>
 
 <svelte:head>
@@ -27,6 +40,7 @@
 
 <a href="/grammar" target="_self">Grammar</a>
 <a href="/vocabulary" target="_self">Vocabulary</a>
+<input bind:checked={cards} type="checkbox" id="toggleLayout" />
 
 {#if loading}
     <img src="/spinner.gif" alt="Loading..." />
@@ -35,25 +49,42 @@
 {:else}
     <div
         class="words-list"
+        style:flex-direction={cards ? "row" : "column"}
         use:dndzone={{ items: words, flipDurationMs: 100, dropTargetStyle: {} }}
         on:consider={(e) => (words = e.detail.items)}
-        on:finalize={(e) => (
-            (words = e.detail.items),
-            words.forEach((word, index) => (word.order = index + 1))
-        )}
+        on:finalize={(e) => {
+            words = e.detail.items;
+            words.forEach((word, index) => (word.order = index + 1));
+            f();
+        }}
     >
-        {#each words as word (word.id)}
-            <div class="word-card" animate:flip={{ duration: 300 }}>
-                <h2>{word.chinese}</h2>
-                <div class="order"><span>{word.order}</span></div>
-                <p>{@html word.pinyin}</p>
-                <p style="font-weight:bold;">{@html word.english}</p>
+        {#each words as word, i (word.id)}
+            <div
+                class="word-card"
+                style:width={cards ? "" : "100%"}
+                animate:flip={{ duration: 300 }}
+            >
+                <h2>{@html word.chinese}</h2>
+                <div class="checked">
+                    <input
+                        type="checkbox"
+                        checked={word.checked}
+                        on:change={() => (words[i].checked = !words[i].checked)}
+                    />
+                </div>
+                {#if word.info}
+                    <div class="info" title={word.info}><span>i</span></div>
+                {/if}
+                <p class="pinyin">{@html word.pinyin}</p>
+                <p>{@html word.english}</p>
                 {#if word.examplePinyin}
-                    <p class="chex">
-                        {@html word.examplePinyin}<br />
-                        <em>{@html word.literal}</em>
-                    </p>
-                    <p>{word.exampleEnglish}</p>
+                    <div class="example">
+                        <p class="ch">
+                            {@html word.examplePinyin}<br />
+                            <em>{@html word.literal}</em>
+                        </p>
+                        <p>{word.exampleEnglish}</p>
+                    </div>
                 {/if}
             </div>
         {/each}
@@ -70,9 +101,10 @@
     .word-card {
         border: 1px solid #ddd;
         border-radius: 8px;
-        padding: 0.5rem 0.5rem 0rem 1rem;
+        padding: 0.5rem;
         background: #f9f9f9;
         text-align: center;
+        box-shadow: 0 0 5px #838383;
         min-width: 100px;
         margin: auto;
         position: relative;
@@ -80,18 +112,20 @@
     .word-card h2 {
         margin: 0;
         color: #2c3e50;
-        font-size: 2rem;
+        font-size: 3rem;
+        font-family: "Songti SC", "SimSun", "Songti TC", "Noto Serif CJK SC",
+            serif;
+    }
+    .word-card .pinyin {
+        font-weight: bold;
+        color: #2c3e50;
     }
     .word-card p {
         font-size: 1.3rem;
-        margin: 0.9rem 0;
+        margin: 0.7rem 0;
         font-family: "calibri", sans-serif;
     }
-    .word-card .chex {
-        border-top: 1px dashed #ccc;
-        padding-top: 1rem;
-    }
-    .word-card em {
+    em {
         color: #666;
         font-size: 1rem;
     }
@@ -99,16 +133,45 @@
         color: #e74c3c;
         text-align: center;
     }
-    .order {
+    /* .info {
         position: absolute;
         top: 6px;
-        right: 3px;
+        left: 3px;
+        cursor: default;
     }
-    .order span {
+    .info span {
         background: #3498db;
         color: white;
         padding: 0.25rem 0.75rem;
         border-radius: 20px;
         font-weight: bold;
+    } */
+    .info {
+        position: absolute;
+        top: 9px;
+        right: 3px;
+        cursor: default;
+    }
+    .info span {
+        color: #3498db;
+        border: solid #3498db 2px;
+        background-color: #bcd1df;
+        padding: 0.1rem 0.5rem;
+        border-radius: 20px;
+        font-weight: bold;
+    }
+    .checked {
+        position: absolute;
+        top: 6px;
+        left: 3px;
+        cursor: default;
+    }
+    .example {
+        background-color: #facc76;
+        padding: 0.5rem;
+        border-radius: 8px;
+    }
+    .example .ch {
+        line-height: 1rem;
     }
 </style>
