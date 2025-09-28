@@ -1,7 +1,7 @@
 [
     {
         "id": 1,
-        "chinese": "",
+        "chinese": "是",
         "pinyin": "shì",
         "english": "To be",
         "examplePinyin": "zhè <b>shì</b> shénme?",
@@ -9,35 +9,41 @@
         "exampleEnglish": "What is this ? ",
         "info": "",
         "checked": true,
+        "type": "Verb",
+        "group": "aaa",
         "createdAt": "2025-09-26T20:58:52.451Z"
     },
     {
         "id": 2,
-        "chinese": "",
+        "chinese": "叫",
         "pinyin": "jiào",
-        "english": "To be named",
+        "english": "To be called",
         "examplePinyin": "nǐ <b>jiào</b> shénme?",
         "literal": "you <b>named</b> what?",
         "exampleEnglish": "what's your name ?",
         "info": "",
         "checked": true,
+        "type": "Verb",
+        "group": "bbb",
         "createdAt": "2025-09-26T20:58:52.451Z"
     },
     {
         "id": 3,
-        "chinese": "",
+        "chinese": "好",
         "pinyin": "hǎo",
         "english": "Good",
-        "examplePinyin": "nǐ <b>hǎo</b> ma?",
-        "literal": "you <b>good</b> right?",
-        "exampleEnglish": "Hello",
+        "examplePinyin": "nǐ <b>hǎo</b>",
+        "literal": "you <b>good</b>",
+        "exampleEnglish": "Hello !",
         "info": "",
         "checked": true,
+        "type": "Adjectif",
+        "group": "ccc",
         "createdAt": "2025-09-26T20:58:52.451Z"
     },
     {
         "id": 4,
-        "chinese": "",
+        "chinese": "非常",
         "pinyin": "fēicháng",
         "english": "Very",
         "examplePinyin": "<b>fēicháng</b> hǎo",
@@ -45,30 +51,36 @@
         "exampleEnglish": "Very good !",
         "info": "",
         "checked": true,
+        "type": "Adverb",
+        "group": "aaa",
         "createdAt": "2025-09-26T20:58:52.451Z"
     },
     {
         "id": 5,
-        "chinese": "",
+        "chinese": "知道",
         "pinyin": "zhīdào",
         "english": "To know something",
         "examplePinyin": "",
         "literal": "",
         "exampleEnglish": "",
-        "info": "",
+        "info": "To know informations",
         "checked": true,
+        "type": "Verb",
+        "group": "bbb",
         "createdAt": "2025-09-26T20:58:52.451Z"
     },
     {
         "id": 6,
-        "chinese": "",
-        "pinyin": "rèn shi",
+        "chinese": "认识",
+        "pinyin": "rènshi",
         "english": "To be familiar with",
-        "examplePinyin": "wǒ <b>rèn shi</b> tā",
+        "examplePinyin": "wǒ <b>rènshi</b> tā",
         "literal": "i <b>know</b> him",
         "exampleEnglish": "I know him",
-        "info": "",
+        "info": "To be familiar with people/places/... (not just to know information about them)",
         "checked": true,
+        "type": "Verb",
+        "group": "ccc",
         "createdAt": "2025-09-26T20:58:52.451Z"
     },
     {
@@ -81,6 +93,8 @@
         "exampleEnglish": "I am chinese",
         "info": "",
         "checked": true,
+        "type": "Noun",
+        "group": "aaa",
         "createdAt": "2025-09-26T20:58:52.451Z"
     },
     {
@@ -93,6 +107,8 @@
         "exampleEnglish": "I have a pen",
         "info": "",
         "checked": true,
+        "type": "Verb",
+        "group": "bbb",
         "createdAt": "2025-09-26T20:58:52.451Z"
     },
     {
@@ -105,6 +121,8 @@
         "exampleEnglish": "Thank you !",
         "info": "",
         "checked": true,
+        "type": "Verb",
+        "group": "ccc",
         "createdAt": "2025-09-26T20:58:52.451Z"
     },
     {
@@ -117,6 +135,8 @@
         "exampleEnglish": "He learns chinese",
         "info": "",
         "checked": true,
+        "type": "Verb",
+        "group": "aaa",
         "createdAt": "2025-09-26T20:58:52.451Z"
     }
 ]

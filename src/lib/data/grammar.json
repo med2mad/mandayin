@@ -9,30 +9,36 @@
         "exampleEnglish": "",
         "info": "",
         "checked": true,
+        "type": "Pronoun",
+        "group": "aaa",
         "createdAt": "2025-09-26T20:58:52.451Z"
     },
     {
         "id": 2,
         "chinese": "我",
         "pinyin": "wǒ",
-        "english": "I/Me/I am",
-        "examplePinyin": "",
-        "literal": "",
-        "exampleEnglish": "",
+        "english": "Me/I/I am",
+        "examplePinyin": "<b>wǒ</b> ài nǐ",
+        "literal": "<b>me</b> love you",
+        "exampleEnglish": "I love you",
         "info": "",
         "checked": true,
+        "type": "Pronoun",
+        "group": "bbb",
         "createdAt": "2025-09-26T20:58:52.451Z"
     },
     {
         "id": 3,
         "chinese": "他/她",
         "pinyin": "tā",
-        "english": "He/Him/She/Her",
-        "examplePinyin": "<b>tā</b> shì wǒ de péngyǒu ",
+        "english": "He/Him/She/Her/it",
+        "examplePinyin": "<b>tā</b> shì wǒ de péngyǒu",
         "literal": "<b>he</b> is my friend",
         "exampleEnglish": "He's my friend",
         "info": "Male and female characters are pronounced the same",
         "checked": true,
+        "type": "Pronoun",
+        "group": "ccc",
         "createdAt": "2025-09-26T20:58:52.451Z"
     },
     {
@@ -45,6 +51,8 @@
         "exampleEnglish": "We are learning chinese",
         "info": "Plural pronouns",
         "checked": true,
+        "type": "Particle",
+        "group": "aaa",
         "createdAt": "2025-09-26T20:58:52.451Z"
     },
     {
@@ -57,6 +65,8 @@
         "exampleEnglish": "People",
         "info": "",
         "checked": true,
+        "type": "Particle",
+        "group": "bbb",
         "createdAt": "2025-09-26T20:58:52.451Z"
     },
     {
@@ -69,6 +79,8 @@
         "exampleEnglish": "My pen",
         "info": "Possessive pronouns",
         "checked": true,
+        "type": "Particle",
+        "group": "ccc",
         "createdAt": "2025-09-26T20:58:52.451Z"
     },
     {
@@ -81,6 +93,8 @@
         "exampleEnglish": "",
         "info": "",
         "checked": true,
+        "type": "Pronoun",
+        "group": "aaa",
         "createdAt": "2025-09-26T20:58:52.451Z"
     },
     {
@@ -91,8 +105,10 @@
         "examplePinyin": "zhōngguó <b>hěn</b> dà",
         "literal": "china <b>very</b> big",
         "exampleEnglish": "China is big",
-        "info": "To use discriptions",
+        "info": "for descriptions",
         "checked": true,
+        "type": "Adverb",
+        "group": "bbb",
         "createdAt": "2025-09-26T20:58:52.451Z"
     },
     {
@@ -105,6 +121,8 @@
         "exampleEnglish": "I don't know you",
         "info": "To Negate verbs",
         "checked": true,
+        "type": "Adverb",
+        "group": "ccc",
         "createdAt": "2025-09-26T20:58:52.451Z"
     },
     {
@@ -117,6 +135,8 @@
         "exampleEnglish": "what is this ?",
         "info": "",
         "checked": true,
+        "type": "Pronoun",
+        "group": "aaa",
         "createdAt": "2025-09-26T20:58:52.451Z"
     },
     {
@@ -129,6 +149,8 @@
         "exampleEnglish": "who is he ?",
         "info": "",
         "checked": true,
+        "type": "Pronoun",
+        "group": "bbb",
         "createdAt": "2025-09-26T20:58:52.451Z"
     },
     {
@@ -141,6 +163,8 @@
         "exampleEnglish": "Are you chinese ?",
         "info": "",
         "checked": true,
+        "type": "Particle",
+        "group": "ccc",
         "createdAt": "2025-09-26T20:58:52.451Z"
     }
 ]
