@@ -1,9 +1,5 @@
 <script>
-    import {
-        addItem,
-        exportVocabulary,
-        importVocabulary,
-    } from "$lib/stores/vocabulary";
+    import { addItem, exportVocabulary, importVocabulary } from "$lib/stores/vocabulary";
 
     let chineseWord = "";
     let pinyin = "";
@@ -78,9 +74,9 @@
 </script>
 
 <svelte:head>
-    <title>Chinese Vocabulary Builder</title>
+    <title>zzzzzzzzzz</title>
 </svelte:head>
-
+<p>zzzzzzzzzzzzzzzzzzzzzz</p>
 <div class="container">
     <header>
         <h1>Chinese Vocabulary Builder</h1>
@@ -100,8 +96,7 @@
                     value={chineseWord}
                     on:input={(e) => (chineseWord = e.target.value)}
                     placeholder="你好"
-                    required
-                />
+                    required />
             </div>
 
             <div class="form-group">
@@ -112,8 +107,7 @@
                     value={pinyin}
                     on:input={(e) => (pinyin = e.target.value)}
                     placeholder="nǐ hǎo"
-                    required
-                />
+                    required />
             </div>
 
             <div class="form-group">
@@ -124,8 +118,7 @@
                     value={englishMeaning}
                     on:input={(e) => (englishMeaning = e.target.value)}
                     placeholder="Hello"
-                    required
-                />
+                    required />
             </div>
         </div>
 
@@ -137,8 +130,7 @@
                     type="text"
                     value={examplePinyin}
                     on:input={(e) => (examplePinyin = e.target.value)}
-                    placeholder="nǐ hǎo ma?"
-                />
+                    placeholder="nǐ hǎo ma?" />
             </div>
 
             <div class="form-group">
@@ -148,21 +140,17 @@
                     type="text"
                     value={exampleEnglish}
                     on:input={(e) => (exampleEnglish = e.target.value)}
-                    placeholder="How are you?"
-                />
+                    placeholder="How are you?" />
             </div>
 
             <div class="form-group">
-                <label for="wordForWordTranslation"
-                    >Word-for-Word Translation:</label
-                >
+                <label for="wordForWordTranslation">Word-for-Word Translation:</label>
                 <input
                     id="wordForWordTranslation"
                     type="text"
                     value={wordForWordTranslation}
                     on:input={(e) => (wordForWordTranslation = e.target.value)}
-                    placeholder="you good ?"
-                />
+                    placeholder="you good ?" />
             </div>
         </div>
 
@@ -180,9 +168,7 @@
 
         <div class="form-actions">
             <div class="form-buttons">
-                <button type="button" on:click={clearForm} class="secondary">
-                    Clear Form
-                </button>
+                <button type="button" on:click={clearForm} class="secondary"> Clear Form </button>
                 <button type="submit">Add Vocabulary</button>
             </div>
         </div>
@@ -220,9 +206,7 @@
                 {/if}
             </div>
         {:else}
-            <div class="preview-placeholder">
-                Start typing to see a preview of your vocabulary item...
-            </div>
+            <div class="preview-placeholder">Start typing to see a preview of your vocabulary item...</div>
         {/if}
     </div>
 </div>
