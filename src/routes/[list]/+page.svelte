@@ -152,6 +152,7 @@
         border-radius: 12px;
         padding: 5px;
         background: #fafafa;
+        min-width: 150px;
     }
     .group-header h3 {
         margin: 0;

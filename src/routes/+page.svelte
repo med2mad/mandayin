@@ -76,7 +76,7 @@
 <svelte:head>
     <title>zzzzzzzzzz</title>
 </svelte:head>
-<p>zzzzzzzzzzzzzzzzzzzzzz</p>
+<p><a href="/grammar">List</a></p>
 <div class="container">
     <header>
         <h1>Chinese Vocabulary Builder</h1>
