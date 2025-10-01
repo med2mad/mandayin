@@ -26,7 +26,15 @@ export function cardsStyling() {
     });
 }
 
-export function downloadJSON(words, fileName) {
+export function downloadJSON(groups, fileName) {
+    const words = [];
+
+    groups.forEach(group => {
+        group.words.forEach(word => {
+            words.push(word);
+        });
+    });
+
     const dataStr = JSON.stringify(words, null, 2);
     const dataBlob = new Blob([dataStr], { type: "application/json" });
 

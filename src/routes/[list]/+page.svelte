@@ -107,6 +107,8 @@
                     onconsider={(e) => (group.words = e.detail.items)}
                     onfinalize={(e) => {
                         group.words = e.detail.items;
+                        console.log(e);
+
                         cardsStyling();
                     }}>
                     {#each group.words as word (word.id)}
@@ -143,9 +145,10 @@
 
 <style>
     .groups {
-        gap: 20px;
         margin-top: 20px;
         display: flex;
+        align-items: flex-start;
+        gap: 20px;
     }
     .group {
         border: 2px solid #e0e0e0;
@@ -165,13 +168,16 @@
     }
     .group-body {
         border-radius: 12px;
-        padding: 10px 0px;
         height: 100%;
         min-height: 200px;
         display: flex;
         flex-wrap: wrap;
         align-content: flex-start;
+        align-items: flex-start;
         gap: 10px;
+        border: 2px solid #e0e0e0;
+        padding: 10px;
+        margin-top: 5px;
     }
     .word {
         border-radius: 8px;
