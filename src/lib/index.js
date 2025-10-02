@@ -26,16 +26,19 @@ export function cardsStyling() {
     });
 }
 
-export function downloadJSON(groups, fileName) {
-    const words = [];
-
-    groups.forEach(group => {
-        group.words.forEach(word => {
-            words.push(word);
+export function downloadJSON(groups, fileName, grouped) {
+    let arr = [];
+    if (grouped) {
+        arr = groups;
+    } else {
+        groups.forEach(group => {
+            group.words.forEach(word => {
+                arr.push(word);
+            });
         });
-    });
+    }
 
-    const dataStr = JSON.stringify(words, null, 2);
+    const dataStr = JSON.stringify(arr, null, 2);
     const dataBlob = new Blob([dataStr], { type: "application/json" });
 
     const url = URL.createObjectURL(dataBlob);

@@ -1,5 +1,9 @@
 [
-    {
+  {
+    "id": 1,
+    "groupName": "aaa",
+    "words": [
+      {
         "id": 1,
         "chinese": "你",
         "pinyin": "nǐ",
@@ -12,36 +16,8 @@
         "type": "Pronoun",
         "group": "aaa",
         "createdAt": "2025-09-26T20:58:52.451Z"
-    },
-    {
-        "id": 2,
-        "chinese": "我",
-        "pinyin": "wǒ",
-        "english": "Me/I/I am",
-        "examplePinyin": "<b>wǒ</b> ài nǐ",
-        "literal": "<b>me</b> love you",
-        "exampleEnglish": "I love you",
-        "info": "",
-        "checked": true,
-        "type": "Pronoun",
-        "group": "bbb",
-        "createdAt": "2025-09-26T20:58:52.451Z"
-    },
-    {
-        "id": 3,
-        "chinese": "他/她",
-        "pinyin": "tā",
-        "english": "He/Him/She/Her/it",
-        "examplePinyin": "<b>tā</b> shì wǒ de péngyǒu",
-        "literal": "<b>he</b> is my friend",
-        "exampleEnglish": "He's my friend",
-        "info": "Male and female characters are pronounced the same",
-        "checked": true,
-        "type": "Pronoun",
-        "group": "ccc",
-        "createdAt": "2025-09-26T20:58:52.451Z"
-    },
-    {
+      },
+      {
         "id": 4,
         "chinese": "<i>pro.+</i>们",
         "pinyin": "<i>pro.+</i> men",
@@ -54,36 +30,8 @@
         "type": "Particle",
         "group": "aaa",
         "createdAt": "2025-09-26T20:58:52.451Z"
-    },
-    {
-        "id": 5,
-        "chinese": "<i>sub.+</i>们",
-        "pinyin": "<i>sub.+</i> men",
-        "english": "Plural",
-        "examplePinyin": "rén<b>men</b>",
-        "literal": "person <b>plural</b>",
-        "exampleEnglish": "People",
-        "info": "",
-        "checked": true,
-        "type": "Particle",
-        "group": "bbb",
-        "createdAt": "2025-09-26T20:58:52.451Z"
-    },
-    {
-        "id": 6,
-        "chinese": "<i>pro.+</i>的",
-        "pinyin": "<i>pro.+</i> de",
-        "english": "my/mine/our/ours/your/yours<br/>his/her/hers/their/theirs",
-        "examplePinyin": "<b>wǒ de</b> bǐ",
-        "literal": "<b>my</b> pen",
-        "exampleEnglish": "My pen",
-        "info": "Possessive pronouns",
-        "checked": true,
-        "type": "Particle",
-        "group": "ccc",
-        "createdAt": "2025-09-26T20:58:52.451Z"
-    },
-    {
+      },
+      {
         "id": 7,
         "chinese": "这",
         "pinyin": "zhè",
@@ -96,36 +44,8 @@
         "type": "Pronoun",
         "group": "aaa",
         "createdAt": "2025-09-26T20:58:52.451Z"
-    },
-    {
-        "id": 8,
-        "chinese": "很<i>+Adj.</i>",
-        "pinyin": "Hěn <i>+Adj.</i>",
-        "english": "very/quite/rather",
-        "examplePinyin": "zhōngguó <b>hěn</b> dà",
-        "literal": "china <b>very</b> big",
-        "exampleEnglish": "China is big",
-        "info": "for descriptions",
-        "checked": true,
-        "type": "Adverb",
-        "group": "bbb",
-        "createdAt": "2025-09-26T20:58:52.451Z"
-    },
-    {
-        "id": 9,
-        "chinese": "不<i>+Verb.</i>",
-        "pinyin": "Bù <i>+Verb.</i>",
-        "english": "not to",
-        "examplePinyin": "wǒ <b>bù</b> rèn shi nǐ",
-        "literal": "i <b>not</b> know you",
-        "exampleEnglish": "I don't know you",
-        "info": "To Negate verbs",
-        "checked": true,
-        "type": "Adverb",
-        "group": "ccc",
-        "createdAt": "2025-09-26T20:58:52.451Z"
-    },
-    {
+      },
+      {
         "id": 10,
         "chinese": "什么",
         "pinyin": "shénme",
@@ -138,8 +58,56 @@
         "type": "Pronoun",
         "group": "aaa",
         "createdAt": "2025-09-26T20:58:52.451Z"
-    },
-    {
+      }
+    ]
+  },
+  {
+    "id": 2,
+    "groupName": "bbb",
+    "words": [
+      {
+        "id": 2,
+        "chinese": "我",
+        "pinyin": "wǒ",
+        "english": "Me/I/I am",
+        "examplePinyin": "<b>wǒ</b> ài nǐ",
+        "literal": "<b>me</b> love you",
+        "exampleEnglish": "I love you",
+        "info": "",
+        "checked": true,
+        "type": "Pronoun",
+        "group": "bbb",
+        "createdAt": "2025-09-26T20:58:52.451Z"
+      },
+      {
+        "id": 5,
+        "chinese": "<i>sub.+</i>们",
+        "pinyin": "<i>sub.+</i> men",
+        "english": "Plural",
+        "examplePinyin": "rén<b>men</b>",
+        "literal": "person <b>plural</b>",
+        "exampleEnglish": "People",
+        "info": "",
+        "checked": true,
+        "type": "Particle",
+        "group": "bbb",
+        "createdAt": "2025-09-26T20:58:52.451Z"
+      },
+      {
+        "id": 8,
+        "chinese": "很<i>+Adj.</i>",
+        "pinyin": "Hěn <i>+Adj.</i>",
+        "english": "very/quite/rather",
+        "examplePinyin": "zhōngguó <b>hěn</b> dà",
+        "literal": "china <b>very</b> big",
+        "exampleEnglish": "China is big",
+        "info": "for descriptions",
+        "checked": true,
+        "type": "Adverb",
+        "group": "bbb",
+        "createdAt": "2025-09-26T20:58:52.451Z"
+      },
+      {
         "id": 11,
         "chinese": "谁",
         "pinyin": "shéi",
@@ -152,8 +120,56 @@
         "type": "Pronoun",
         "group": "bbb",
         "createdAt": "2025-09-26T20:58:52.451Z"
-    },
-    {
+      }
+    ]
+  },
+  {
+    "id": 3,
+    "groupName": "ccc",
+    "words": [
+      {
+        "id": 3,
+        "chinese": "他/她",
+        "pinyin": "tā",
+        "english": "He/Him/She/Her/it",
+        "examplePinyin": "<b>tā</b> shì wǒ de péngyǒu",
+        "literal": "<b>he</b> is my friend",
+        "exampleEnglish": "He's my friend",
+        "info": "Male and female characters are pronounced the same",
+        "checked": true,
+        "type": "Pronoun",
+        "group": "ccc",
+        "createdAt": "2025-09-26T20:58:52.451Z"
+      },
+      {
+        "id": 6,
+        "chinese": "<i>pro.+</i>的",
+        "pinyin": "<i>pro.+</i> de",
+        "english": "my/mine/our/ours/your/yours<br/>his/her/hers/their/theirs",
+        "examplePinyin": "<b>wǒ de</b> bǐ",
+        "literal": "<b>my</b> pen",
+        "exampleEnglish": "My pen",
+        "info": "Possessive pronouns",
+        "checked": true,
+        "type": "Particle",
+        "group": "ccc",
+        "createdAt": "2025-09-26T20:58:52.451Z"
+      },
+      {
+        "id": 9,
+        "chinese": "不<i>+Verb.</i>",
+        "pinyin": "Bù <i>+Verb.</i>",
+        "english": "not to",
+        "examplePinyin": "wǒ <b>bù</b> rèn shi nǐ",
+        "literal": "i <b>not</b> know you",
+        "exampleEnglish": "I don't know you",
+        "info": "To Negate verbs",
+        "checked": true,
+        "type": "Adverb",
+        "group": "ccc",
+        "createdAt": "2025-09-26T20:58:52.451Z"
+      },
+      {
         "id": 12,
         "chinese": "吗",
         "pinyin": "ma?",
@@ -166,5 +182,7 @@
         "type": "Particle",
         "group": "ccc",
         "createdAt": "2025-09-26T20:58:52.451Z"
-    }
+      }
+    ]
+  }
 ]

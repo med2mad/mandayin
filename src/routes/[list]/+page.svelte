@@ -12,12 +12,12 @@
     let error = null;
     let cards = true;
     let sortBy = "id";
-    let groupBy = "type";
+    let groupBy = "group";
     let sortDirection = "asc";
 
     onMount(async () => {
         try {
-            words = data.x.default;
+            groups = data.x.default;
             loading = false;
         } catch (err) {
             error = err.message;
@@ -52,16 +52,18 @@
     }
 
     async function group() {
-        groups = [];
-        const groupsMap = {};
-        words.forEach((word) => {
-            const g = word[groupBy];
-            if (!groupsMap[g]) {
-                groupsMap[g] = { id: groups.length + 1, groupName: g, words: [] };
-                groups.push(groupsMap[g]);
-            }
-            groupsMap[g].words.push(word);
-        });
+        // groups = [];
+        // const groupsMap = {};
+        // words.forEach((word) => {
+        //     const g = word[groupBy];
+        //     if (!groupsMap[g]) {
+        //         groupsMap[g] = { id: groups.length + 1, groupName: g, words: [] };
+        //         groups.push(groupsMap[g]);
+        //     }
+        //     groupsMap[g].words.push(word);
+        // });
+        // groups.push(groupsMap[g]);
+
         groups = groups;
         await tick();
         cardsStyling();
@@ -71,7 +73,7 @@
 <a href="/grammar" target="_self">Grammar</a>
 <a href="/vocabulary" target="_self">Vocabulary</a>
 <input bind:checked={cards} type="checkbox" id="toggleLayout" />
-<button onclick={() => downloadJSON(groups, `${$page.params.list}.json`)}>Download JSON</button>
+<button onclick={() => downloadJSON(groups, `${$page.params.list}.json`, true)}>Download JSON</button>
 <button onclick={addGroup}>Add group</button>
 <div class="sort-controls">
     <select id="group" bind:value={groupBy} onchange={group}>
@@ -102,13 +104,12 @@
                 <div class="group-header"><h3>{group.groupName + (groupBy == "type" ? "s" : "")}</h3></div>
                 <div
                     class="group-body"
+                    data-groupname={group.groupName}
                     style:flex-direction={cards ? "row" : "column"}
                     use:dndzone={{ items: group.words, flipDurationMs: 100, dropTargetStyle: {} }}
                     onconsider={(e) => (group.words = e.detail.items)}
                     onfinalize={(e) => {
                         group.words = e.detail.items;
-                        console.log(e);
-
                         cardsStyling();
                     }}>
                     {#each group.words as word (word.id)}
