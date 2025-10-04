@@ -2,19 +2,16 @@
     import { onMount, tick } from "svelte";
     import { page } from "$app/stores";
     import { dndzone } from "svelte-dnd-action";
-    import { flip } from "svelte/animate";
-    import { cardsStyling, downloadJSON } from "$lib/index.js";
+    import { cardsStyling, downloadJSON } from "$lib/utils.js";
     import Group from "$lib/components/Group.svelte";
 
     const { data } = $props();
-    let words = [];
     let groups = $state([]);
     let loading = $state(true);
     let error = $state(null);
     let cards = $state(true);
-    let sortBy = $state("id");
-    let groupBy = $state("group");
-    let sortDirection = $state("asc");
+    let sortBy = $state("date");
+    let sortDirection = $state("desc");
 
     onMount(async () => {
         try {
@@ -32,10 +29,10 @@
         groups.forEach((group) => {
             group.words = group.words.sort((a, b) => {
                 let result;
-                if (sortBy === "id") {
-                    result = a.id - b.id;
+                if (sortBy === "date") {
+                    result = a.createdAt.localeCompare(b.createdAt);
                 } else if (sortBy === "type") {
-                    result = (a.group || "").localeCompare(b.group || "");
+                    result = (a.type || "").localeCompare(b.type || "");
                 }
                 return sortDirection === "asc" ? result : -result;
             });
@@ -43,7 +40,7 @@
     }
 
     function addGroup() {
-        groups.push({
+        groups.unshift({
             id: groups.length + 1,
             groupName: prompt("Group name"),
             words: [],
@@ -51,24 +48,19 @@
     }
 
     async function group() {
-        // groups = [];
-        // const groupsMap = {};
-        // words.forEach((word) => {
-        //     const g = word[groupBy];
-        //     if (!groupsMap[g]) {
-        //         groupsMap[g] = { id: groups.length + 1, groupName: g, words: [] };
-        //         groups.push(groupsMap[g]);
-        //     }
-        //     groupsMap[g].words.push(word);
-        // });
-        // groups.push(groupsMap[g]);
-
         await tick();
         cardsStyling();
     }
 
-    function removeGroup(groupIndex) {
-        groups = groups.filter((_, index) => index !== groupIndex);
+    async function removeGroup(groupIndex) {
+        const group = groups[groupIndex];
+        if (confirm(`${group.words.length} words will be ungrouped.`)) {
+            const wordsToMove = group.words;
+            groups[groups.length - 1].words = [...groups[groups.length - 1].words, ...wordsToMove];
+            groups = groups.filter((_, index) => index !== groupIndex);
+            await tick();
+            cardsStyling();
+        }
     }
 
     function groupBack(i) {
@@ -85,20 +77,14 @@
 <button onclick={() => downloadJSON(groups, `${$page.params.list}.json`, true)}>Download JSON</button>
 <button onclick={addGroup}>Add group</button>
 <div class="sort-controls">
-    <select id="group" bind:value={groupBy} onchange={group}>
-        <option value="type">types</option>
-        <option value="group">groups</option>
-    </select>
-
     <select id="sort" bind:value={sortBy} onchange={sortWords}>
-        <option value="id">date</option>
+        <option value="date">date</option>
         <option value="type">type</option>
-        <option value="group">group</option>
     </select>
 
     <select id="sortDirection" bind:value={sortDirection} onchange={sortWords}>
-        <option value="asc">Ascending</option>
         <option value="desc">Descending</option>
+        <option value="asc">Ascending</option>
     </select>
 </div>
 
@@ -107,25 +93,23 @@
 {:else if error}
     <p class="error">Error: {error}</p>
 {:else}
-    <div class="groups" style="margin-bottom: 10px;">
+    <div
+        class="groups"
+        use:dndzone={{ items: groups, flipDurationMs: 100, type: "columns" }}
+        onconsider={(e) => (groups = e.detail.items)}
+        onfinalize={(e) => {
+            groups = e.detail.items;
+            cardsStyling();
+        }}>
         {#each groups as group, groupIndex (group.id)}
             {#if groupIndex != groups.length - 1}
-                <Group
-                    {group}
-                    {groupIndex}
-                    {groupBy}
-                    {cards}
-                    {groupForward}
-                    {groupBack}
-                    {removeGroup}
-                    ungrouped={false} />
+                <Group {group} {groupIndex} {cards} {groupForward} {groupBack} {removeGroup} ungrouped={false} />
             {/if}
         {/each}
     </div>
     <Group
         group={groups[groups.length - 1]}
         groupIndex={groups.length - 1}
-        {groupBy}
         {cards}
         {groupForward}
         {groupBack}

@@ -1,16 +1,15 @@
 <script>
     import { dndzone } from "svelte-dnd-action";
     import { flip } from "svelte/animate";
-    import { cardsStyling } from "$lib/index.js";
+    import { cardsStyling } from "$lib/utils.js";
 
-    let { group, groupBy, cards, groupIndex, ungrouped, groupBack, groupForward, removeGroup } = $props();
+    let { group, cards, groupIndex, ungrouped, groupBack, groupForward, removeGroup } = $props();
 </script>
 
 <div class={"group" + (ungrouped ? " ungrouped" : " grouped")}>
     {#if !ungrouped}
         <div class="group-header">
             <h3>
-                {group.groupName + (groupBy == "type" ? "s" : "")}
                 <span class="word-count">({group.words.length} words)</span>
             </h3>
 
@@ -31,7 +30,7 @@
     <div
         class={"group-body" + (ungrouped ? " ungrouped" : " grouped")}
         style:flex-direction={cards ? "row" : "column"}
-        use:dndzone={{ items: group.words, flipDurationMs: 100, dropTargetStyle: {} }}
+        use:dndzone={{ items: group.words, flipDurationMs: 100 }}
         onconsider={(e) => (group.words = e.detail.items)}
         onfinalize={(e) => {
             group.words = e.detail.items;
@@ -74,7 +73,7 @@
         background: #fafafa;
     }
     .group.ungrouped {
-        background: rgb(221, 144, 71);
+        background: #dd9047;
     }
 
     .group-header {
@@ -84,13 +83,12 @@
         display: flex;
         justify-content: space-between;
         align-items: center;
-        background: linear-gradient(to bottom, #d3d3d3, #ffffff, #d3d3d3);
     }
     .group.grouped .group-header {
-        background-color: #ecebeb;
+        background: linear-gradient(to bottom, #d3d3d3, #ffffff, #d3d3d3);
     }
     .group.ungrouped .group-header {
-        background-color: rgb(255, 243, 231);
+        background: linear-gradient(to bottom, #dd9047, #ffffff, #dd9047);
     }
 
     .group-header h3 {
@@ -130,6 +128,10 @@
 
     .group-body {
         border-radius: 12px;
+        border: 2px solid #e0e0e0;
+        box-shadow: inset 0px 0px 7px 0px;
+        padding: 10px;
+        margin-top: 5px;
         height: 100%;
         min-height: 200px;
         display: flex;
@@ -137,17 +139,13 @@
         align-content: flex-start;
         align-items: flex-start;
         gap: 10px;
-        border: 2px solid #e0e0e0;
-        box-shadow: inset 0px 0px 7px 0px;
-        padding: 10px;
-        margin-top: 5px;
     }
     .ungrouped.group-body {
         background: rgb(107, 80, 55);
     }
     .word {
         border-radius: 8px;
-        background: linear-gradient(to right, #ffffff, #ececec);
+        background: linear-gradient(to right, #e2e2e2, #ffffff);
         text-align: center;
         box-shadow: 0 0 5px #838383;
         min-width: 100px;
@@ -211,6 +209,7 @@
     .info span {
         color: gold;
         border: dashed gold 1px;
+        background-color: rgb(255, 248, 205);
         padding: 0.1rem 0.5rem;
         border-radius: 20px;
         font-weight: bold;

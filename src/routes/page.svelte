@@ -1,10 +1,5 @@
 <script>
-    import {
-        vocabulary,
-        deleteItem,
-        exportVocabulary,
-        importVocabulary,
-    } from "$lib/stores/vocabulary";
+    import { vocabulary, deleteItem, exportVocabulary, importVocabulary } from "$lib/stores/vocabulary";
     import { onMount } from "svelte";
     import { dndzone } from "svelte-dnd-action";
     import { flip } from "svelte/animate";
@@ -56,9 +51,7 @@
         const file = event.target.files[0];
         if (!file) return;
 
-        if (
-            confirm("This will replace all your current vocabulary. Continue?")
-        ) {
+        if (confirm("This will replace all your current vocabulary. Continue?")) {
             importVocabulary(file)
                 .then(() => {
                     success = "Vocabulary imported successfully!";
@@ -66,8 +59,7 @@
                     importError = "";
                 })
                 .catch(() => {
-                    importError =
-                        "Failed to import file. Please check the format.";
+                    importError = "Failed to import file. Please check the format.";
                     success = "";
                 });
         }
@@ -75,11 +67,7 @@
     }
 
     function clearAll() {
-        if (
-            confirm(
-                "Are you sure you want to delete ALL vocabulary items? This cannot be undone!",
-            )
-        ) {
+        if (confirm("Are you sure you want to delete ALL vocabulary items? This cannot be undone!")) {
             vocabulary.set([]);
             success = "All vocabulary items cleared!";
             setTimeout(() => (success = ""), 3000);
@@ -90,6 +78,17 @@
 <svelte:head>
     <title>Vocabulary List - Chinese Learning</title>
 </svelte:head>
+
+<div class="data-management">
+    <div class="data-actions">
+        <button on:click={exportVocabulary} class="secondary"> 📥 Export Backup </button>
+        <label for="import-file" class="secondary button">
+            📤 Import Backup
+            <input id="import-file" type="file" accept=".json" on:change={handleImport} style="display: none;" />
+        </label>
+        <button on:click={clearAll} class="danger"> 🗑️ Clear All </button>
+    </div>
+</div>
 
 <div class="container">
     <header>
@@ -105,9 +104,7 @@
             <div class="empty-icon">📚</div>
             <h3>No vocabulary yet</h3>
             <p>
-                Start by adding some vocabulary on the <a href="/"
-                    >Add Vocabulary</a
-                > page!
+                Start by adding some vocabulary on the <a href="/">Add Vocabulary</a> page!
             </p>
         </div>
     {:else}
@@ -119,18 +116,13 @@
                         value={searchTerm}
                         on:input={(e) => (searchTerm = e.target.value)}
                         placeholder="Search vocabulary..."
-                        class="search-input"
-                    />
+                        class="search-input" />
                     <span class="search-icon">🔍</span>
                 </div>
 
                 <div class="sort-controls">
                     <label for="sort">Sort by:</label>
-                    <select
-                        id="sort"
-                        value={sortBy}
-                        on:change={(e) => (sortBy = e.target.value)}
-                    >
+                    <select id="sort" value={sortBy} on:change={(e) => (sortBy = e.target.value)}>
                         <option value="newest">Newest First</option>
                         <option value="oldest">Oldest First</option>
                     </select>
@@ -153,27 +145,6 @@
             <div class="message error">{importError}</div>
         {/if}
 
-        <div class="data-management">
-            <div class="data-actions">
-                <button on:click={exportVocabulary} class="secondary">
-                    📥 Export Backup
-                </button>
-                <label for="import-file" class="secondary button">
-                    📤 Import Backup
-                    <input
-                        id="import-file"
-                        type="file"
-                        accept=".json"
-                        on:change={handleImport}
-                        style="display: none;"
-                    />
-                </label>
-                <button on:click={clearAll} class="danger">
-                    🗑️ Clear All
-                </button>
-            </div>
-        </div>
-
         <div
             class="vocabulary-list"
             use:dndzone={{
@@ -182,22 +153,15 @@
                 dropTargetStyle: {},
             }}
             on:consider={(e) => (sortedItems = e.detail.items)}
-            on:finalize={(e) => (sortedItems = e.detail.items)}
-        >
+            on:finalize={(e) => (sortedItems = e.detail.items)}>
             {#if sortedItems.length === 0 && searchTerm}
                 <div class="no-results">
                     <p>No items found for "<strong>{searchTerm}</strong>"</p>
-                    <button on:click={() => (searchTerm = "")} class="secondary"
-                        >Clear search</button
-                    >
+                    <button on:click={() => (searchTerm = "")} class="secondary">Clear search</button>
                 </div>
             {:else}
                 {#each sortedItems as item (item.id)}
-                    <div
-                        draggable="true"
-                        class="vocabulary-item"
-                        animate:flip={{ duration: 300 }}
-                    >
+                    <div draggable="true" class="vocabulary-item" animate:flip={{ duration: 300 }}>
                         <div class="item-main">
                             <div class="item-content">
                                 <div class="chinese">{item.chineseWord}</div>
@@ -206,10 +170,8 @@
                             </div>
                             <button
                                 class="delete-btn"
-                                on:click={() =>
-                                    handleDelete(item.id, item.chineseWord)}
-                                title="Delete item"
-                            >
+                                on:click={() => handleDelete(item.id, item.chineseWord)}
+                                title="Delete item">
                                 <span class="delete-icon">×</span>
                             </button>
                         </div>
@@ -238,9 +200,7 @@
                         {/if}
 
                         <div class="item-footer">
-                            <span class="item-date"
-                                >Added: {formatDate(item.createdAt)}</span
-                            >
+                            <span class="item-date">Added: {formatDate(item.createdAt)}</span>
                         </div>
                     </div>
                 {/each}

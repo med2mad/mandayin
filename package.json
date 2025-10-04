@@ -21,6 +21,7 @@
     "vite": "^7.0.4"
   },
   "dependencies": {
+    "lokijs": "^1.5.12",
     "svelte-dnd-action": "^0.9.65"
   }
 }
