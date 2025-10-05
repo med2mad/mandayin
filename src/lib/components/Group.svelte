@@ -130,6 +130,7 @@
         border-radius: 12px;
         border: 2px solid #e0e0e0;
         box-shadow: inset 0px 0px 7px 0px;
+        background-color: #e6e1e1;
         padding: 10px;
         margin-top: 5px;
         height: 100%;
@@ -145,7 +146,7 @@
     }
     .word {
         border-radius: 8px;
-        background: linear-gradient(to right, #e2e2e2, #ffffff);
+        background: linear-gradient(to right, #d1d1d1, #ffffff);
         text-align: center;
         box-shadow: 0 0 5px #838383;
         min-width: 100px;

@@ -1,5 +1,5 @@
 <script>
-    import { addItem, exportVocabulary, importVocabulary } from "$lib/stores/vocabulary";
+    import { addItem } from "$lib/stores/vocabulary";
 
     let chineseWord = "";
     let pinyin = "";
@@ -8,18 +8,7 @@
     let exampleEnglish = "";
     let wordForWordTranslation = "";
 
-    let error = "";
-    let success = "";
-    let importError = "";
-
     function handleSubmit() {
-        if (!chineseWord || !pinyin || !englishMeaning) {
-            error = "Chinese word, Pinyin, and English meaning are required";
-            return;
-        }
-
-        error = "";
-
         addItem({
             chineseWord,
             pinyin,
@@ -36,9 +25,6 @@
         examplePinyin = "";
         exampleEnglish = "";
         wordForWordTranslation = "";
-
-        success = "Vocabulary item added successfully!";
-        setTimeout(() => (success = ""), 3000);
     }
 
     function clearForm() {
@@ -48,28 +34,6 @@
         examplePinyin = "";
         exampleEnglish = "";
         wordForWordTranslation = "";
-        error = "";
-        success = "";
-        importError = "";
-    }
-
-    function handleImport(event) {
-        const file = event.target.files[0];
-        if (!file) return;
-
-        importVocabulary(file)
-            .then(() => {
-                success = "Vocabulary imported successfully!";
-                setTimeout(() => (success = ""), 3000);
-                importError = "";
-            })
-            .catch(() => {
-                importError = "Failed to import file. Please check the format.";
-                success = "";
-            });
-
-        // Reset file input
-        event.target.value = "";
     }
 </script>
 
@@ -154,18 +118,6 @@
             </div>
         </div>
 
-        {#if error}
-            <div class="message error">{error}</div>
-        {/if}
-
-        {#if success}
-            <div class="message success">{success}</div>
-        {/if}
-
-        {#if importError}
-            <div class="message error">{importError}</div>
-        {/if}
-
         <div class="form-actions">
             <div class="form-buttons">
                 <button type="button" on:click={clearForm} class="secondary"> Clear Form </button>
@@ -236,12 +188,6 @@
         font-weight: 700;
     }
 
-    header p {
-        color: #666;
-        font-size: 1.1rem;
-        margin-bottom: 2rem;
-    }
-
     nav {
         display: flex;
         justify-content: center;
@@ -293,15 +239,6 @@
         margin-bottom: 0;
     }
 
-    h2 {
-        color: #2c3e50;
-        margin-bottom: 1.5rem;
-        font-size: 1.4rem;
-        border-left: 4px solid #e74c3c;
-        padding-left: 1rem;
-        font-weight: 600;
-    }
-
     .form-group {
         margin-bottom: 1.5rem;
     }
@@ -314,8 +251,7 @@
         font-size: 0.95rem;
     }
 
-    input,
-    textarea {
+    input {
         width: 100%;
         padding: 0.875rem;
         border: 2px solid #e9ecef;
@@ -326,23 +262,10 @@
         font-family: inherit;
     }
 
-    input:focus,
-    textarea:focus {
+    input:focus {
         outline: none;
         border-color: #e74c3c;
         box-shadow: 0 0 0 3px rgba(231, 76, 60, 0.1);
-    }
-
-    textarea {
-        resize: vertical;
-        min-height: 80px;
-    }
-
-    small {
-        color: #666;
-        font-size: 0.85rem;
-        margin-top: 0.25rem;
-        display: block;
     }
 
     .form-actions {
@@ -352,11 +275,6 @@
         gap: 1rem;
         margin-top: 2rem;
         flex-wrap: wrap;
-    }
-
-    .data-actions {
-        display: flex;
-        gap: 1rem;
     }
 
     .form-buttons {
@@ -396,45 +314,6 @@
         color: #2c3e50;
         transform: translateY(-2px);
         box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-    }
-
-    .button {
-        display: inline-block;
-        padding: 0.875rem 1.5rem;
-        background: #f8f9fa;
-        color: #666;
-        border: 2px solid #e9ecef;
-        border-radius: 8px;
-        cursor: pointer;
-        transition: all 0.3s;
-        font-weight: 600;
-        text-align: center;
-    }
-
-    .button:hover {
-        background: #e9ecef;
-        color: #2c3e50;
-        transform: translateY(-2px);
-        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-    }
-
-    .message {
-        padding: 1rem;
-        border-radius: 8px;
-        margin: 1.5rem 0;
-        font-weight: 500;
-    }
-
-    .error {
-        background: #fee;
-        color: #c33;
-        border: 1px solid #fcc;
-    }
-
-    .success {
-        background: #efe;
-        color: #363;
-        border: 1px solid #cfc;
     }
 
     .preview {
@@ -544,7 +423,6 @@
             gap: 1.5rem;
         }
 
-        .data-actions,
         .form-buttons {
             justify-content: center;
             flex-wrap: wrap;
@@ -589,14 +467,12 @@
             padding: 1rem;
         }
 
-        .data-actions,
         .form-buttons {
             flex-direction: column;
             width: 100%;
         }
 
-        button,
-        .button {
+        button {
             width: 100%;
             justify-content: center;
         }
