@@ -4,8 +4,9 @@
     import { dndzone } from "svelte-dnd-action";
     import { cardsStyling, downloadJSON } from "$lib/utils.js";
     import Group from "$lib/components/Group.svelte";
+    import { VocabDB } from "$lib/db.js";
 
-    const { data } = $props();
+    // const { data } = $props();
     let loading = $state(true);
     let error = $state(null);
     let cards = $state(true);
@@ -15,8 +16,8 @@
     let groups = $state([]);
     let searchTerm = $state("");
 
-    function filter() {
-        groups = [...data.x.default];
+    async function filter() {
+        groups = await VocabDB.load();
 
         groups.forEach((group) => {
             group.words = group.words.filter((word) => {
@@ -27,9 +28,29 @@
         });
     }
 
+    function findDuplicateIds(data) {
+        const idMap = new Map();
+
+        data.forEach((group, groupIndex) => {
+            if (idMap.has(group.id)) {
+                console.warn(`Duplicate group ID ${group.id} at indexes ${idMap.get(group.id)} and ${groupIndex}`);
+            } else {
+                idMap.set(group.id, groupIndex);
+            }
+
+            group.words.forEach((word, wordIndex) => {
+                if (idMap.has(word.id)) {
+                    console.warn(`Duplicate word ID ${word.id} in group ${groupIndex}, word ${wordIndex}`);
+                } else {
+                    idMap.set(word.id, `${groupIndex}-${wordIndex}`);
+                }
+            });
+        });
+    }
+
     onMount(async () => {
         try {
-            groups = [...data.x.default]; //can i remove this if groups is $derived
+            groups = await VocabDB.load();
             loading = false;
         } catch (err) {
             error = err.message;
@@ -109,21 +130,14 @@
 
 <div class="data-management">
     <div class="data-actions">
-        <button onclick={() => downloadJSON(groups, `${$page.params.list}.json`, true)} class="secondary">
-            📥 Export Backup
-        </button>
+        <button onclick={() => downloadJSON(groups, `${$page.params.list}.json`, true)} class="secondary"> 📥 Export Backup </button>
         <button onclick={document.getElementById("import-file").click()} class="secondary"> 📥 Import Backup </button>
         <input id="import-file" type="file" accept=".json" onchange={handleImport} style="display: none;" />
     </div>
 </div>
 
 <div class="search-box">
-    <input
-        type="text"
-        bind:value={searchTerm}
-        oninput={filter}
-        placeholder="Search vocabulary..."
-        class="search-input" />
+    <input type="text" bind:value={searchTerm} oninput={filter} placeholder="Search vocabulary..." class="search-input" />
     <span class="search-icon">🔍</span>
 </div>
 
@@ -131,6 +145,7 @@
 <a href="/vocabulary" target="_self">Vocabulary</a>
 <input bind:checked={cards} type="checkbox" id="toggleLayout" />
 <button onclick={addGroup}>Add group</button>
+<button onclick={() => VocabDB.save(groups)}>save</button>
 <div class="sort-controls">
     <select id="sort" bind:value={sortBy} onchange={sortWords}>
         <option value="date">date</option>
@@ -158,18 +173,11 @@
         }}>
         {#each groups as group, groupIndex (group.id)}
             {#if groupIndex != groups.length - 1}
-                <Group {group} {groupIndex} {cards} {groupForward} {groupBack} {removeGroup} ungrouped={false} />
+                <Group bind:group={groups[groupIndex]} {groupIndex} {cards} {groupForward} {groupBack} {removeGroup} ungrouped={false} />
             {/if}
         {/each}
     </div>
-    <Group
-        group={groups[groups.length - 1]}
-        groupIndex={groups.length - 1}
-        {cards}
-        {groupForward}
-        {groupBack}
-        {removeGroup}
-        ungrouped={true} />
+    <Group bind:group={groups[groups.length - 1]} groupIndex={groups.length - 1} {cards} {groupForward} {groupBack} {removeGroup} ungrouped={true} />
 {/if}
 
 <style>
@@ -180,7 +188,6 @@
         justify-content: space-evenly;
         gap: 20px;
     }
-
     .error {
         color: #e74c3c;
         text-align: center;

@@ -75,7 +75,6 @@
     .group.ungrouped {
         background: #dd9047;
     }
-
     .group-header {
         padding: 10px;
         border: 2px solid #e0e0e0;
@@ -90,23 +89,19 @@
     .group.ungrouped .group-header {
         background: linear-gradient(to bottom, #dd9047, #ffffff, #dd9047);
     }
-
     .group-header h3 {
         color: #333;
         font-size: 1.2em;
         margin: 0;
     }
-
     .group-actions {
         display: flex;
         align-items: center;
     }
-
     .word-count {
         color: #666;
         font-size: 0.9em;
     }
-
     .remove-group {
         background: #ff4444;
         color: white;
@@ -121,11 +116,9 @@
         font-size: 16px;
         padding: 0;
     }
-
     .remove-group:hover {
         background: #cc0000;
     }
-
     .group-body {
         border-radius: 12px;
         border: 2px solid #e0e0e0;
@@ -133,7 +126,6 @@
         background-color: #e6e1e1;
         padding: 10px;
         margin-top: 5px;
-        height: 100%;
         min-height: 200px;
         display: flex;
         flex-wrap: wrap;

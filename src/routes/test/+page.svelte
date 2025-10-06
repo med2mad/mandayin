@@ -1,150 +1,149 @@
 <script>
     import { onMount } from "svelte";
+    import { VocabDB } from "$lib/db.js";
 
-    let db;
     let groups = [];
-    let newWord = {
-        id: null,
-        chinese: "",
-        pinyin: "",
-        english: "",
-        examplePinyin: "",
-        literal: "",
-        exampleEnglish: "",
-        info: "",
-        checked: true,
-        type: "",
-        group: "",
-        createdAt: "",
-    };
+    let isLoading = true;
+    let activeGroup = null;
+    let showAddWordForm = false;
+    let showAddGroupForm = false;
+    let newWord = {};
+    let newGroupName = "";
 
     onMount(async () => {
-        const LokiModule = await import("lokijs");
-        const Loki = LokiModule.default ?? LokiModule;
-
-        const AdapterModule = await import("lokijs/src/loki-indexed-adapter.js");
-        const LokiIndexedAdapter = AdapterModule.default ?? AdapterModule;
-
-        const idbAdapter = new LokiIndexedAdapter("myApp");
-
-        db = new Loki("wordsDB", {
-            adapter: idbAdapter,
-            autoload: true,
-            autosave: true,
-            autosaveInterval: 4000,
-            autoloadCallback: () => {
-                let coll = db.getCollection("words");
-                if (!coll) coll = db.addCollection("words", { indices: ["group"] });
-
-                groups = groupWords(coll.find());
-            },
-        });
+        groups = await VocabDB.load();
+        isLoading = false;
     });
 
-    function groupWords(allWords) {
-        const map = {};
-        allWords.forEach((word) => {
-            const groupName = word.group || "ungrouped";
-            if (!map[groupName]) map[groupName] = [];
-            map[groupName].push(word);
-        });
-        return Object.entries(map).map(([groupName, words]) => ({ groupName, words }));
+    async function toggleWord(groupId, wordId) {
+        groups = await VocabDB.toggleWord(groupId, wordId);
     }
 
-    function addWord() {
-        const coll = db.getCollection("words");
-        const wordToInsert = { ...newWord };
-        wordToInsert.createdAt = new Date().toISOString();
-        coll.insert(wordToInsert);
-        db.saveDatabase();
-        groups = groupWords(coll.find());
-
-        newWord = {
-            id: null,
-            chinese: "",
-            pinyin: "",
-            english: "",
-            examplePinyin: "",
-            literal: "",
-            exampleEnglish: "",
-            info: "",
-            checked: true,
-            type: "",
-            group: "",
-            createdAt: "",
-        };
-    }
-
-    function removeWord(id) {
-        const coll = db.getCollection("words");
-        const doc = coll.get(id);
-        if (doc) {
-            coll.remove(doc);
-            db.saveDatabase();
-            groups = groupWords(coll.find());
-            console.log(groups);
+    async function addWord(groupId) {
+        if (newWord.chinese && newWord.pinyin && newWord.english) {
+            groups = await VocabDB.addWord(groupId, {
+                ...newWord,
+                checked: true,
+                type: newWord.type || "Other",
+                examplePinyin: newWord.examplePinyin || "",
+                literal: newWord.literal || "",
+                exampleEnglish: newWord.exampleEnglish || "",
+                info: newWord.info || "",
+            });
+            newWord = {};
+            showAddWordForm = false;
         }
     }
 
-    function exportDB() {
-        db.saveDatabase(() => {
-            const data = db.serialize();
-            const blob = new Blob([data], { type: "application/json" });
-            const url = URL.createObjectURL(blob);
-
-            const a = document.createElement("a");
-            a.href = url;
-            a.download = "wordsDB.json";
-            a.click();
-            URL.revokeObjectURL(url);
-        });
+    async function addGroup() {
+        if (newGroupName.trim()) {
+            groups = await VocabDB.addGroup(newGroupName.trim());
+            newGroupName = "";
+            showAddGroupForm = false;
+        }
     }
 
-    function importDB(event) {
-        const file = event.target.files[0];
-        if (!file) return;
+    async function resetData() {
+        if (confirm("Reset all data to initial state?")) {
+            groups = await VocabDB.reset();
+        }
+    }
 
-        const reader = new FileReader();
-        reader.onload = (e) => {
-            const json = e.target.result;
-            db.loadJSON(json);
-            db.saveDatabase();
-            const coll = db.getCollection("words");
-            groups = groupWords(coll.find());
-        };
-        reader.readAsText(file);
+    function setActiveGroup(group) {
+        activeGroup = activeGroup?.id === group.id ? null : group;
     }
 </script>
 
-<h1>Chinese Words Database</h1>
+<div class="container">
+    <div class="header">
+        <h1>Chinese Vocabulary App</h1>
+        <div>
+            <button on:click={() => (showAddGroupForm = !showAddGroupForm)} class="secondary"> Add Group </button>
+            <button on:click={resetData} class="secondary">Reset Data</button>
+        </div>
+    </div>
 
-<h2>Add Word</h2>
-<input placeholder="Chinese" bind:value={newWord.chinese} />
-<input placeholder="Pinyin" bind:value={newWord.pinyin} />
-<input placeholder="English" bind:value={newWord.english} />
-<input placeholder="Example Pinyin" bind:value={newWord.examplePinyin} />
-<input placeholder="Literal" bind:value={newWord.literal} />
-<input placeholder="Example English" bind:value={newWord.exampleEnglish} />
-<input placeholder="Info" bind:value={newWord.info} />
-<label>
-    Checked:
-    <input type="checkbox" bind:checked={newWord.checked} />
-</label>
-<input placeholder="Type" bind:value={newWord.type} />
-<input placeholder="Group" bind:value={newWord.group} />
-<button on:click={addWord}>Add Word</button>
+    {#if isLoading}
+        <p>Loading vocabulary data...</p>
+    {:else}
+        {#if showAddGroupForm}
+            <div class="form-container">
+                <h3>Add New Group</h3>
+                <input bind:value={newGroupName} placeholder="Group name" />
+                <div class="form-actions">
+                    <button on:click={addGroup}>Add Group</button>
+                    <button on:click={() => (showAddGroupForm = false)} class="secondary">Cancel</button>
+                </div>
+            </div>
+        {/if}
 
-<button on:click={exportDB}>Export DB</button>
-<input type="file" accept=".json" on:change={importDB} />
+        <div class="groups-grid">
+            {#each groups as group (group.id)}
+                <div class="group-card {activeGroup?.id === group.id ? 'active' : ''}">
+                    <div class="group-header" on:click={() => setActiveGroup(group)}>
+                        <div class="group-name">{group.groupName}</div>
+                        <div class="word-count">{group.words.length} words</div>
+                    </div>
 
-{#each groups as g}
-    <h3>{g.groupName}</h3>
-    <ul>
-        {#each g.words as w}
-            <li>
-                <b>{w.chinese}</b> | {w.pinyin} | {w.english} | {w.type} | Checked: {w.checked ? "Yes" : "No"}
-                <button on:click={() => removeWord(w.$loki)}>Remove</button>
-            </li>
-        {/each}
-    </ul>
-{/each}
+                    {#if activeGroup?.id === group.id}
+                        <div class="words-list">
+                            {#each group.words as word (word.id)}
+                                <div class="word-item {word.checked ? '' : 'unchecked'}">
+                                    <label>
+                                        <input type="checkbox" class="checkbox" checked={word.checked} on:change={() => toggleWord(group.id, word.id)} />
+                                        <div class="word-chinese" innerHTML={word.chinese}></div>
+                                        <div class="word-pinyin" innerHTML={word.pinyin}></div>
+                                        <div class="word-english" innerHTML={word.english}></div>
+                                        {#if word.examplePinyin}
+                                            <div class="word-example">
+                                                <strong>Example:</strong>
+                                                <span innerHTML={word.examplePinyin}></span> → "{word.exampleEnglish}"
+                                            </div>
+                                        {/if}
+                                        {#if word.info}
+                                            <div class="word-info">{word.info}</div>
+                                        {/if}
+                                        <div class="word-meta">
+                                            <span>{word.type}</span>
+                                            <span>{new Date(word.createdAt).toLocaleDateString()}</span>
+                                        </div>
+                                    </label>
+                                </div>
+                            {/each}
+
+                            {#if showAddWordForm && activeGroup.id === group.id}
+                                <div class="form-container">
+                                    <h4>Add New Word to {group.groupName}</h4>
+                                    <input bind:value={newWord.chinese} placeholder="Chinese" />
+                                    <input bind:value={newWord.pinyin} placeholder="Pinyin" />
+                                    <input bind:value={newWord.english} placeholder="English" />
+                                    <select bind:value={newWord.type}>
+                                        <option value="Pronoun">Pronoun</option>
+                                        <option value="Particle">Particle</option>
+                                        <option value="Adverb">Adverb</option>
+                                        <option value="Other">Other</option>
+                                    </select>
+                                    <input bind:value={newWord.examplePinyin} placeholder="Example Pinyin" />
+                                    <input bind:value={newWord.exampleEnglish} placeholder="Example English" />
+                                    <input bind:value={newWord.info} placeholder="Info" />
+                                    <div class="form-actions">
+                                        <button on:click={() => addWord(group.id)}>Add Word</button>
+                                        <button on:click={() => (showAddWordForm = false)} class="secondary">Cancel</button>
+                                    </div>
+                                </div>
+                            {:else}
+                                <button
+                                    on:click={() => {
+                                        showAddWordForm = true;
+                                        activeGroup = group;
+                                    }}>
+                                    Add Word
+                                </button>
+                            {/if}
+                        </div>
+                    {/if}
+                </div>
+            {/each}
+        </div>
+    {/if}
+</div>
