@@ -7,17 +7,17 @@
     import { VocabDB } from "$lib/db.js";
 
     // const { data } = $props();
-    let loading = $state(true);
-    let error = $state(null);
-    let cards = $state(true);
-    let sortBy = $state("date");
-    let sortDirection = $state("desc");
+    let loading = true;
+    let error = null;
+    let cards = true;
+    let sortBy = "date";
+    let sortDirection = "desc";
 
-    let groups = $state([]);
-    let searchTerm = $state("");
+    let groups = [];
+    let searchTerm = "";
 
     async function filter() {
-        groups = await VocabDB.load();
+        groups = await VocabDB.load($page.params.section);
 
         groups.forEach((group) => {
             group.words = group.words.filter((word) => {
@@ -50,7 +50,7 @@
 
     onMount(async () => {
         try {
-            groups = await VocabDB.load();
+            groups = await VocabDB.load($page.params.section);
             loading = false;
         } catch (err) {
             error = err.message;
@@ -130,7 +130,7 @@
 
 <div class="data-management">
     <div class="data-actions">
-        <button onclick={() => downloadJSON(groups, `${$page.params.list}.json`, true)} class="secondary"> 📥 Export Backup </button>
+        <button onclick={() => downloadJSON(groups, `${$page.params.section}.json`, true)} class="secondary"> 📥 Export Backup </button>
         <button onclick={document.getElementById("import-file").click()} class="secondary"> 📥 Import Backup </button>
         <input id="import-file" type="file" accept=".json" onchange={handleImport} style="display: none;" />
     </div>
@@ -145,7 +145,7 @@
 <a href="/vocabulary" target="_self">Vocabulary</a>
 <input bind:checked={cards} type="checkbox" id="toggleLayout" />
 <button onclick={addGroup}>Add group</button>
-<button onclick={() => VocabDB.save(groups)}>save</button>
+<button onclick={() => VocabDB.save(groups, $page.params.section)}>save</button>
 <div class="sort-controls">
     <select id="sort" bind:value={sortBy} onchange={sortWords}>
         <option value="date">date</option>

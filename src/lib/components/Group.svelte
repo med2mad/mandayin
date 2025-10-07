@@ -3,13 +3,14 @@
     import { flip } from "svelte/animate";
     import { cardsStyling } from "$lib/utils.js";
 
-    let { group, cards, groupIndex, ungrouped, groupBack, groupForward, removeGroup } = $props();
+    export let group, cards, groupIndex, ungrouped, groupBack, groupForward, removeGroup;
 </script>
 
 <div class={"group" + (ungrouped ? " ungrouped" : " grouped")}>
     {#if !ungrouped}
         <div class="group-header">
             <h3>
+                {group.groupName}
                 <span class="word-count">({group.words.length} words)</span>
             </h3>
 
