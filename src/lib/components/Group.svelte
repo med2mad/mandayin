@@ -40,22 +40,24 @@
         {#each group.words as word (word.id)}
             <div class="word" style:width={cards ? "" : "100%"} animate:flip={{ duration: 300 }}>
                 <div class={"type " + word.type}>{word.type}</div>
-                <h2>{@html word.chinese}</h2>
                 <div class="checked">
                     <input type="checkbox" checked={word.checked} onchange={() => (word.checked = !word.checked)} />
                 </div>
                 {#if word.info}
                     <div class="info" title={word.info}><span>i</span></div>
                 {/if}
+                <h2>{@html word.chinese}</h2>
                 <p class="pinyin">{@html word.pinyin}</p>
                 <p>{@html word.english}</p>
-                {#if word.examplePinyin}
+                {#if word.examples.length > 0}
                     <div class="example">
-                        <p class="ch">
-                            {@html word.examplePinyin}<br />
-                            <em>{@html word.literal}</em>
-                        </p>
-                        <p class="en">{word.exampleEnglish}</p>
+                        {#each word.examples as example (example.id)}
+                            <p class="ch">
+                                {@html example.pinyin}<br />
+                                <em>{@html example.literal}</em>
+                            </p>
+                            <p class="en" style="border-bottom: 1px solid black;">{example.english}</p>
+                        {/each}
                     </div>
                 {/if}
             </div>
@@ -220,6 +222,8 @@
         border: 2px solid #bdbdbd;
         border-radius: 8px;
         margin: 0.5rem !important;
+        max-height: 100px;
+        overflow-y: auto;
     }
     .example p {
         padding: 0;

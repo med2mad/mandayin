@@ -1,5 +1,5 @@
 import localforage from 'localforage';
-import { data } from "$lib/data";
+import { initialData } from "$lib/data";
 
 localforage.config({
     name: 'ChineseVocabApp',
@@ -10,12 +10,12 @@ localforage.config({
 export class VocabDB {
     static async load(section) {
         const data = await localforage.getItem(section);
-        return data || data[section];
+        return data || initialData[section];
     }
 
     static async reset(section) {
-        await localforage.setItem(section, data[section]);
-        return data[section];
+        await localforage.setItem(section, initialData[section]);
+        return initialData[section];
     }
 
     // Add word to a group

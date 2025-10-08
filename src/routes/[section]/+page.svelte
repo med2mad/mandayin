@@ -53,7 +53,7 @@
             groups = await VocabDB.load($page.params.section);
             loading = false;
         } catch (err) {
-            error = err.message;
+            error = "Cannot load data !";
             loading = false;
         }
 

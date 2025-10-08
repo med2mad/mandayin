@@ -1,4 +1,4 @@
-export const data = {
+export const initialData = {
     grammar: [
         {
             groupName: "aaa",
@@ -9,9 +9,8 @@ export const data = {
                     chinese: "你",
                     pinyin: "nǐ",
                     english: "You",
-                    examplePinyin: "",
-                    literal: "",
-                    exampleEnglish: "",
+                    examples: [
+                    ],
                     info: "",
                     checked: true,
                     type: "Pronoun",
@@ -22,9 +21,20 @@ export const data = {
                     chinese: "<i>pro.+</i>们",
                     pinyin: "<i>pro.+</i> men",
                     english: "We/Us/You/Them",
-                    examplePinyin: "<b>wǒmen</b> xuéxí zhōngwén",
-                    literal: "<b>we</b> learn chinese",
-                    exampleEnglish: "We are learning chinese",
+                    examples: [
+                        {
+                            id: 17,
+                            pinyin: "<b>wǒmen</b> xuéxí zhōngwén",
+                            literal: "<b>we</b> learn chinese",
+                            english: "We are learning chinese",
+                        },
+                        {
+                            id: 18,
+                            pinyin: "<b>zzz</b> zzz",
+                            literal: "<b>zzz</b> zzzz",
+                            english: "zzzzzzzzzz",
+                        }
+                    ],
                     info: "Plural pronouns",
                     checked: true,
                     type: "Particle",
@@ -35,9 +45,8 @@ export const data = {
                     chinese: "这",
                     pinyin: "zhè",
                     english: "This",
-                    examplePinyin: "",
-                    literal: "",
-                    exampleEnglish: "",
+                    examples: [
+                    ],
                     info: "",
                     checked: true,
                     type: "Pronoun",
@@ -48,9 +57,14 @@ export const data = {
                     chinese: "什么",
                     pinyin: "shénme",
                     english: "What?",
-                    examplePinyin: "zhè shì <b>shénme?</b>",
-                    literal: "this is <b>what?</b>",
-                    exampleEnglish: "what is this ?",
+                    examples: [
+                        {
+                            id: 19,
+                            pinyin: "zhè shì <b>shénme?</b>",
+                            literal: "this is <b>what?</b>",
+                            english: "what is this ?",
+                        }
+                    ],
                     info: "",
                     checked: true,
                     type: "Pronoun",
@@ -67,9 +81,14 @@ export const data = {
                     chinese: "我",
                     pinyin: "wǒ",
                     english: "Me/I/I am",
-                    examplePinyin: "<b>wǒ</b> ài nǐ",
-                    literal: "<b>me</b> love you",
-                    exampleEnglish: "I love you",
+                    examples: [
+                        {
+                            id: 20,
+                            pinyin: "<b>wǒ</b> ài nǐ",
+                            literal: "<b>me</b> love you",
+                            english: "I love you",
+                        }
+                    ],
                     info: "",
                     checked: true,
                     type: "Pronoun",
@@ -80,9 +99,14 @@ export const data = {
                     chinese: "<i>sub.+</i>们",
                     pinyin: "<i>sub.+</i> men",
                     english: "Plural",
-                    examplePinyin: "rén<b>men</b>",
-                    literal: "person <b>plural</b>",
-                    exampleEnglish: "People",
+                    examples: [
+                        {
+                            id: 21,
+                            pinyin: "rén<b>men</b>",
+                            literal: "person <b>plural</b>",
+                            english: "People",
+                        }
+                    ],
                     info: "",
                     checked: true,
                     type: "Particle",
@@ -93,9 +117,14 @@ export const data = {
                     chinese: "很<i>+Adj.</i>",
                     pinyin: "Hěn <i>+Adj.</i>",
                     english: "very/quite/rather",
-                    examplePinyin: "zhōngguó <b>hěn</b> dà",
-                    literal: "china <b>very</b> big",
-                    exampleEnglish: "China is big",
+                    examples: [
+                        {
+                            id: 22,
+                            pinyin: "zhōngguó <b>hěn</b> dà",
+                            literal: "china <b>very</b> big",
+                            english: "China is big",
+                        }
+                    ],
                     info: "for descriptions",
                     checked: true,
                     type: "Adverb",
@@ -106,9 +135,14 @@ export const data = {
                     chinese: "谁",
                     pinyin: "shéi",
                     english: "Who?",
-                    examplePinyin: "tā shì <b>shéi?</b>",
-                    literal: "he is <b>who?</b>",
-                    exampleEnglish: "who is he ?",
+                    examples: [
+                        {
+                            id: 23,
+                            pinyin: "tā shì <b>shéi?</b>",
+                            literal: "he is <b>who?</b>",
+                            english: "who is he ?",
+                        }
+                    ],
                     info: "",
                     checked: true,
                     type: "Pronoun",
@@ -125,9 +159,14 @@ export const data = {
                     chinese: "他/她",
                     pinyin: "tā",
                     english: "He/Him/She/Her/it",
-                    examplePinyin: "<b>tā</b> shì wǒ de péngyǒu",
-                    literal: "<b>he</b> is my friend",
-                    exampleEnglish: "He's my friend",
+                    examples: [
+                        {
+                            id: 24,
+                            pinyin: "<b>tā</b> shì wǒ de péngyǒu",
+                            literal: "<b>he</b> is my friend",
+                            english: "He's my friend",
+                        }
+                    ],
                     info: "Male and female characters are pronounced the same",
                     checked: true,
                     type: "Pronoun",
@@ -138,9 +177,14 @@ export const data = {
                     chinese: "<i>pro.+</i>的",
                     pinyin: "<i>pro.+</i> de",
                     english: "my/mine/our/ours/your/yours<br/>his/her/hers/their/theirs",
-                    examplePinyin: "<b>wǒ de</b> bǐ",
-                    literal: "<b>my</b> pen",
-                    exampleEnglish: "My pen",
+                    examples: [
+                        {
+                            id: 25,
+                            pinyin: "<b>wǒ de</b> bǐ",
+                            literal: "<b>my</b> pen",
+                            english: "My pen",
+                        }
+                    ],
                     info: "Possessive pronouns",
                     checked: true,
                     type: "Particle",
@@ -151,9 +195,14 @@ export const data = {
                     chinese: "不<i>+Verb.</i>",
                     pinyin: "Bù <i>+Verb.</i>",
                     english: "not to",
-                    examplePinyin: "wǒ <b>bù</b> rèn shi nǐ",
-                    literal: "i <b>not</b> know you",
-                    exampleEnglish: "I don't know you",
+                    examples: [
+                        {
+                            id: 26,
+                            pinyin: "wǒ <b>bù</b> rèn shi nǐ",
+                            literal: "i <b>not</b> know you",
+                            english: "I don't know you",
+                        }
+                    ],
                     info: "To Negate verbs",
                     checked: true,
                     type: "Adverb",
@@ -164,9 +213,14 @@ export const data = {
                     chinese: "吗",
                     pinyin: "ma?",
                     english: "yes or no ?",
-                    examplePinyin: "nǐ shì zhōngguó rén <b>ma?</b>",
-                    literal: "you are chinese <b>aren't you ?</b>",
-                    exampleEnglish: "Are you chinese ?",
+                    examples: [
+                        {
+                            id: 27,
+                            pinyin: "nǐ shì zhōngguó rén <b>ma?</b>",
+                            literal: "you are chinese <b>aren't you ?</b>",
+                            english: "Are you chinese ?",
+                        }
+                    ],
                     info: "",
                     checked: true,
                     type: "Particle",
@@ -186,9 +240,14 @@ export const data = {
                     chinese: "是",
                     pinyin: "shì",
                     english: "To be",
-                    examplePinyin: "zhè <b>shì</b> shénme?",
-                    literal: "this <b>is</b> what?",
-                    exampleEnglish: "What is this ? ",
+                    examples: [
+                        {
+                            id: 28,
+                            pinyin: "zhè <b>shì</b> shénme?",
+                            literal: "this <b>is</b> what?",
+                            english: "What is this ? ",
+                        }
+                    ],
                     info: "",
                     checked: true,
                     type: "Verb",
@@ -199,9 +258,14 @@ export const data = {
                     chinese: "叫",
                     pinyin: "jiào",
                     english: "To be called",
-                    examplePinyin: "nǐ <b>jiào</b> shénme?",
-                    literal: "you <b>named</b> what?",
-                    exampleEnglish: "what's your name ?",
+                    examples: [
+                        {
+                            id: 29,
+                            pinyin: "nǐ <b>jiào</b> shénme?",
+                            literal: "you <b>named</b> what?",
+                            english: "what's your name ?",
+                        }
+                    ],
                     info: "",
                     checked: true,
                     type: "Verb",
@@ -212,9 +276,14 @@ export const data = {
                     chinese: "好",
                     pinyin: "hǎo",
                     english: "Good",
-                    examplePinyin: "nǐ <b>hǎo</b>",
-                    literal: "you <b>good</b>",
-                    exampleEnglish: "Hello !",
+                    examples: [
+                        {
+                            id: 30,
+                            pinyin: "nǐ <b>hǎo</b>",
+                            literal: "you <b>good</b>",
+                            english: "Hello !",
+                        }
+                    ],
                     info: "",
                     checked: true,
                     type: "Adjectif",
@@ -225,9 +294,14 @@ export const data = {
                     chinese: "非常",
                     pinyin: "fēicháng",
                     english: "Very",
-                    examplePinyin: "<b>fēicháng</b> hǎo",
-                    literal: "<b>very</b> good",
-                    exampleEnglish: "Very good !",
+                    examples: [
+                        {
+                            id: 31,
+                            pinyin: "<b>fēicháng</b> hǎo",
+                            literal: "<b>very</b> good",
+                            english: "Very good !",
+                        }
+                    ],
                     info: "",
                     checked: true,
                     type: "Adverb",
@@ -238,9 +312,14 @@ export const data = {
                     chinese: "知道",
                     pinyin: "zhīdào",
                     english: "To know something",
-                    examplePinyin: "",
-                    literal: "",
-                    exampleEnglish: "",
+                    examples: [
+                        {
+                            id: 32,
+                            pinyin: "",
+                            literal: "",
+                            english: ""
+                        }
+                    ],
                     info: "To know informations",
                     checked: true,
                     type: "Verb",
@@ -251,9 +330,14 @@ export const data = {
                     chinese: "认识",
                     pinyin: "rènshi",
                     english: "To be familiar with",
-                    examplePinyin: "wǒ <b>rènshi</b> tā",
-                    literal: "i <b>know</b> him",
-                    exampleEnglish: "I know him",
+                    examples: [
+                        {
+                            id: 33,
+                            pinyin: "wǒ <b>rènshi</b> tā",
+                            literal: "i <b>know</b> him",
+                            english: "I know him",
+                        }
+                    ],
                     info: "To be familiar with people/places/... (not just to know information about them)",
                     checked: true,
                     type: "Verb",
@@ -264,9 +348,14 @@ export const data = {
                     chinese: "人",
                     pinyin: "rén",
                     english: "Person/People",
-                    examplePinyin: "wǒ shì zhōng guó <b>rén</b>",
-                    literal: "i am china <b>person</b>",
-                    exampleEnglish: "I am chinese",
+                    examples: [
+                        {
+                            id: 34,
+                            pinyin: "wǒ shì zhōng guó <b>rén</b>",
+                            literal: "i am china <b>person</b>",
+                            english: "I am chinese",
+                        }
+                    ],
                     info: "",
                     checked: true,
                     type: "Noun",
@@ -277,9 +366,14 @@ export const data = {
                     chinese: "有",
                     pinyin: "yǒu",
                     english: "To have",
-                    examplePinyin: "wǒ <b>yǒu</b> bǐ",
-                    literal: "I have pen",
-                    exampleEnglish: "I have a pen",
+                    examples: [
+                        {
+                            id: 35,
+                            pinyin: "wǒ <b>yǒu</b> bǐ",
+                            literal: "I have pen",
+                            english: "I have a pen",
+                        }
+                    ],
                     info: "",
                     checked: true,
                     type: "Verb",
@@ -290,9 +384,15 @@ export const data = {
                     chinese: "谢谢",
                     pinyin: "xièxiè",
                     english: "Thanks",
-                    examplePinyin: "<b>xièxiè</b> nǐ",
-                    literal: "<b>thank</b> you",
-                    exampleEnglish: "Thank you !",
+                    examples: [
+                        {
+                            id: 36,
+                            pinyin: "<b>xièxiè</b> nǐ",
+                            literal: "<b>thank</b> you",
+                            english: "Thank you !",
+                        }
+                    ],
+
                     info: "",
                     checked: true,
                     type: "Verb",
@@ -303,9 +403,14 @@ export const data = {
                     chinese: "学习",
                     pinyin: "xuéxí",
                     english: "Learning",
-                    examplePinyin: "tā <b>xuéxí</b> zhōngwén",
-                    literal: "He <b>learning</b> chinese",
-                    exampleEnglish: "He learns chinese",
+                    examples: [
+                        {
+                            id: 37,
+                            pinyin: "tā <b>xuéxí</b> zhōngwén",
+                            literal: "He <b>learning</b> chinese",
+                            english: "He learns chinese",
+                        }
+                    ],
                     info: "",
                     checked: true,
                     type: "Verb",
