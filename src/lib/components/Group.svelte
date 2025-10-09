@@ -2,6 +2,10 @@
     import { dndzone } from "svelte-dnd-action";
     import { flip } from "svelte/animate";
     import { cardsStyling } from "$lib/utils.js";
+    import Info from "$lib/components/Info.svelte";
+
+    let currentWord;
+    let showModal = false;
 
     export let group, cards, groupIndex, ungrouped, groupBack, groupForward, removeGroup;
 </script>
@@ -37,7 +41,7 @@
             group.words = e.detail.items;
             cardsStyling();
         }}>
-        {#each group.words as word (word.id)}
+        {#each group.words as word, i (word.id)}
             <div class="word" style:width={cards ? "" : "100%"} animate:flip={{ duration: 300 }}>
                 <div class={"type " + word.type}>{word.type}</div>
                 <div class="checked">
@@ -50,20 +54,18 @@
                 <p class="pinyin">{@html word.pinyin}</p>
                 <p>{@html word.english}</p>
                 {#if word.examples.length > 0}
-                    <div class="example">
-                        {#each word.examples as example (example.id)}
-                            <p class="ch">
-                                {@html example.pinyin}<br />
-                                <em>{@html example.literal}</em>
-                            </p>
-                            <p class="en" style="border-bottom: 1px solid black;">{example.english}</p>
-                        {/each}
-                    </div>
+                    <button
+                        onclick={() => {
+                            currentWord = group.words[i];
+                            showModal = true;
+                        }}>Show Custom Modal</button>
                 {/if}
             </div>
         {/each}
     </div>
 </div>
+
+<Info word={currentWord} show={showModal} on:close={() => (showModal = false)} />
 
 <style>
     .group {
@@ -188,14 +190,6 @@
         padding: 0 0.5rem;
         font-family: "calibri", sans-serif;
     }
-    em {
-        color: #666;
-        font-size: 1rem;
-    }
-    .error {
-        color: #e74c3c;
-        text-align: center;
-    }
     .info {
         position: absolute;
         top: 28px;
@@ -216,25 +210,7 @@
         left: 3px;
         cursor: default;
     }
-    .example {
-        background-color: #facc76;
-        padding: 0.5rem;
-        border: 2px solid #bdbdbd;
-        border-radius: 8px;
-        margin: 0.5rem !important;
-        max-height: 100px;
-        overflow-y: auto;
-    }
-    .example p {
+    p {
         padding: 0;
-    }
-    .example .ch {
-        line-height: 1rem;
-    }
-    .example .en {
-        border-top: dashed 1px #9c9c9c;
-        padding-top: 0.6rem;
-        font-weight: bold;
-        font-style: italic;
     }
 </style>

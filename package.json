@@ -21,8 +21,8 @@
     "vite": "^7.0.4"
   },
   "dependencies": {
-    "@splidejs/splide": "^4.1.4",
     "localforage": "^1.10.0",
-    "svelte-dnd-action": "^0.9.65"
+    "svelte-dnd-action": "^0.9.65",
+    "sweetalert2": "^11.25.0"
   }
 }
