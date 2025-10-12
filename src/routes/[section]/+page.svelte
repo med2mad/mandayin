@@ -1,20 +1,18 @@
 <script>
-    import { onMount, tick } from "svelte";
     import { page } from "$app/stores";
     import { dndzone } from "svelte-dnd-action";
-    import { cardsStyling, downloadJSON } from "$lib/utils.js";
+    import { downloadJSON } from "$lib/utils.js";
     import Group from "$lib/components/Group.svelte";
     import { VocabDB } from "$lib/db.js";
 
-    // const { data } = $props();
+    let groups = [];
     let loading = true;
     let error = null;
     let cards = true;
     let sortBy = "date";
     let sortDirection = "desc";
-
-    let groups = [];
     let searchTerm = "";
+    $: loadGroups($page.params.section);
 
     async function filter() {
         groups = await VocabDB.load($page.params.section);
@@ -28,37 +26,26 @@
         });
     }
 
-    function findDuplicateIds(data) {
-        const idMap = new Map();
+    async function loadGroups(section) {
+        if (!section) return;
+        loading = true;
 
-        data.forEach((group, groupIndex) => {
-            if (idMap.has(group.id)) {
-                console.warn(`Duplicate group ID ${group.id} at indexes ${idMap.get(group.id)} and ${groupIndex}`);
-            } else {
-                idMap.set(group.id, groupIndex);
-            }
-
-            group.words.forEach((word, wordIndex) => {
-                if (idMap.has(word.id)) {
-                    console.warn(`Duplicate word ID ${word.id} in group ${groupIndex}, word ${wordIndex}`);
-                } else {
-                    idMap.set(word.id, `${groupIndex}-${wordIndex}`);
-                }
+        if (typeof window !== "undefined") {
+            groups = await VocabDB.load(section);
+            groups.forEach((group) => {
+                group.words.forEach((word) => {
+                    word.chinese = word.chinese.replaceAll("<i>", '<i style="color:#666; font-size:1rem; font-family:calibri;font-weight:normal;">');
+                    word.pinyin = word.pinyin.replaceAll("<i>", '<i style="color:#666; font-size:1rem; font-family:calibri;font-weight:normal;">');
+                    word.examples.forEach((example) => {
+                        example.pinyin = example.pinyin.replaceAll("<b>", '<b style="color:red;font-weight:normal;">');
+                        example.literal = example.literal.replaceAll("<b>", '<b style="color:red;font-weight:normal;">');
+                    });
+                });
             });
-        });
-    }
 
-    onMount(async () => {
-        try {
-            groups = await VocabDB.load($page.params.section);
-            loading = false;
-        } catch (err) {
-            error = "Cannot load data !";
             loading = false;
         }
-
-        group();
-    });
+    }
 
     function sortWords() {
         groups.forEach((group) => {
@@ -82,19 +69,12 @@
         });
     }
 
-    async function group() {
-        await tick();
-        cardsStyling();
-    }
-
     async function removeGroup(groupIndex) {
         const group = groups[groupIndex];
         if (confirm(`${group.words.length} words will be ungrouped.`)) {
             const wordsToMove = group.words;
             groups[groups.length - 1].words = [...groups[groups.length - 1].words, ...wordsToMove];
             groups = groups.filter((_, index) => index !== groupIndex);
-            await tick();
-            cardsStyling();
         }
     }
 
@@ -141,8 +121,9 @@
     <span class="search-icon">🔍</span>
 </div>
 
-<a href="/grammar" target="_self">Grammar</a>
-<a href="/vocabulary" target="_self">Vocabulary</a>
+<a href="/grammar">Grammar</a>
+<a href="/vocabulary">Vocabulary</a>
+<a href="/numbers">Numbers</a>
 <input bind:checked={cards} type="checkbox" id="toggleLayout" />
 <button onclick={addGroup}>Add group</button>
 <button onclick={() => VocabDB.save(groups, $page.params.section)}>save</button>
@@ -169,7 +150,6 @@
         onconsider={(e) => (groups = e.detail.items)}
         onfinalize={(e) => {
             groups = e.detail.items;
-            cardsStyling();
         }}>
         {#each groups as group, groupIndex (group.id)}
             {#if groupIndex != groups.length - 1}

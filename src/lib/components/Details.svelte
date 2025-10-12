@@ -1,10 +1,11 @@
 <script>
     import { createEventDispatcher } from "svelte";
+    import { scale } from "svelte/transition";
 
     const dispatch = createEventDispatcher();
 
-    export let show = false;
-    export let word;
+    export let showModal = false,
+        word;
 
     function close() {
         dispatch("close");
@@ -17,24 +18,28 @@
     }
 </script>
 
-{#if show}
+{#if showModal}
     <!-- svelte-ignore a11y_click_events_have_key_events -->
     <!-- svelte-ignore a11y_no_static_element_interactions -->
-    <div class="modal-backdrop" on:click={handleBackdropClick}>
-        <div class="modal">
+    <div class="modal-backdrop" onclick={handleBackdropClick}>
+        <div transition:scale={{ duration: 150 }} class="modal">
             <div class="modal-header">
-                <button on:click={close} class="close-btn">×</button>
+                <h2>{@html word.chinese}</h2>
+                <p class="pinyin">{@html word.pinyin}</p>
+                <button onclick={close} class="remove-group">×</button>
             </div>
             <div class="modal-content">
-                <div class="example">
-                    {#each word.examples as example (example.id)}
+                <p>{word.type}</p>
+                <p>{word.info}</p>
+                {#each word.examples as example (example.id)}
+                    <div class="example">
                         <p class="ch">
                             {@html example.pinyin}<br />
                             <em>{@html example.literal}</em>
                         </p>
-                        <p class="en" style="border-bottom: 1px solid black;">{example.english}</p>
-                    {/each}
-                </div>
+                        <p class="en">{example.english}</p>
+                    </div>
+                {/each}
             </div>
         </div>
     </div>
@@ -53,7 +58,6 @@
         align-items: center;
         z-index: 1000;
     }
-
     .modal {
         background: white;
         border-radius: 8px;
@@ -63,33 +67,44 @@
         max-height: 80vh;
         overflow-y: auto;
     }
-
     .modal-header {
         text-align: right;
         padding: 20px;
         border-bottom: 1px solid #eee;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
     }
-
-    .close-btn {
-        background: none;
+    .remove-group {
+        background: #ff4444;
+        color: white;
         border: none;
-        font-size: 24px;
+        border-radius: 50%;
+        width: 24px;
+        height: 24px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
         cursor: pointer;
+        font-size: 16px;
+        padding: 0;
     }
-
+    .remove-group:hover {
+        background: #cc0000;
+    }
     .modal-content {
         padding: 20px;
     }
-
-    p {
-        font-size: 1.3rem;
-        margin: 0.4rem 0;
-        padding: 0 0.5rem;
-        font-family: "calibri", sans-serif;
+    /* ----------content----------- */
+    h2 {
+        margin: 0;
+        color: #2c3e50;
+        font-size: 3rem;
+        font-family: "Songti SC", "SimSun", "Songti TC", "Noto Serif CJK SC", serif;
     }
-    em {
-        color: #666;
-        font-size: 1rem;
+    .pinyin {
+        font-weight: bold;
+        color: #2c3e50;
     }
     .example {
         background-color: #facc76;
@@ -100,13 +115,21 @@
         max-height: 100px;
         overflow-y: auto;
     }
-    .example p {
+    p {
+        font-size: 1.3rem;
+        margin: 0.4rem 0;
+        padding: 0 0.5rem;
+        font-family: "calibri", sans-serif;
         padding: 0;
     }
-    .example .ch {
+    .example p em {
+        color: #666;
+        font-size: 1rem;
+    }
+    .example p.ch {
         line-height: 1rem;
     }
-    .example .en {
+    .example p.en {
         border-top: dashed 1px #9c9c9c;
         padding-top: 0.6rem;
         font-weight: bold;

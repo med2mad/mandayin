@@ -1,12 +1,12 @@
-export async function cardsStyling() {
-    document.querySelectorAll("i").forEach((el) => {
-        el.style =
-            "color:#666; font-size:1rem; font-family:calibri;font-weight:normal;";
-    });
-    document.querySelectorAll("b").forEach((el) => {
-        el.style = "color:red;font-weight:normal;";
-    });
-}
+// export async function cardsStyling() {
+//     document.querySelectorAll("i").forEach((el) => {
+//         el.style =
+//             "color:#666; font-size:1rem; font-family:calibri;font-weight:normal;";
+//     });
+//     document.querySelectorAll("b").forEach((el) => {
+//         el.style = "color:red;font-weight:normal;";
+//     });
+// }
 
 export function downloadJSON(groups, fileName, grouped) {
     let arr = [];

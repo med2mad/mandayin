@@ -1,8 +1,7 @@
 <script>
     import { dndzone } from "svelte-dnd-action";
     import { flip } from "svelte/animate";
-    import { cardsStyling } from "$lib/utils.js";
-    import Info from "$lib/components/Info.svelte";
+    import Details from "$lib/components/Details.svelte";
 
     let currentWord;
     let showModal = false;
@@ -39,33 +38,42 @@
         onconsider={(e) => (group.words = e.detail.items)}
         onfinalize={(e) => {
             group.words = e.detail.items;
-            cardsStyling();
         }}>
         {#each group.words as word, i (word.id)}
-            <div class="word" style:width={cards ? "" : "100%"} animate:flip={{ duration: 300 }}>
+            <!-- svelte-ignore a11y_click_events_have_key_events -->
+            <!-- svelte-ignore a11y_no_static_element_interactions -->
+            <div
+                class="word"
+                style:width={cards ? "" : "100%"}
+                animate:flip={{ duration: 300 }}
+                onclick={async () => {
+                    currentWord = group.words[i];
+                    showModal = true;
+                }}>
                 <div class={"type " + word.type}>{word.type}</div>
                 <div class="checked">
                     <input type="checkbox" checked={word.checked} onchange={() => (word.checked = !word.checked)} />
                 </div>
-                {#if word.info}
-                    <div class="info" title={word.info}><span>i</span></div>
-                {/if}
                 <h2>{@html word.chinese}</h2>
                 <p class="pinyin">{@html word.pinyin}</p>
                 <p>{@html word.english}</p>
+                <!-- -----details------- -->
                 {#if word.examples.length > 0}
-                    <button
-                        onclick={() => {
-                            currentWord = group.words[i];
-                            showModal = true;
-                        }}>Show Custom Modal</button>
+                    <div class="example">
+                        <p class="ch">
+                            {@html word.examples[0].pinyin}<br />
+                            <em>{@html word.examples[0].literal}</em>
+                        </p>
+                        <p class="en">{word.examples[0].english}</p>
+                    </div>
                 {/if}
+                <!-- -----details------- -->
             </div>
         {/each}
     </div>
 </div>
 
-<Info word={currentWord} show={showModal} on:close={() => (showModal = false)} />
+<Details word={currentWord} {showModal} on:close={() => (showModal = false)} />
 
 <style>
     .group {
@@ -174,6 +182,12 @@
     .word .Noun {
         background-color: rgb(72, 151, 161);
     }
+    .word .Number {
+        background-color: rgb(139, 155, 81);
+    }
+    .word .Character {
+        background-color: rgb(139, 155, 81);
+    }
     .word h2 {
         margin: 0;
         color: #2c3e50;
@@ -190,20 +204,6 @@
         padding: 0 0.5rem;
         font-family: "calibri", sans-serif;
     }
-    .info {
-        position: absolute;
-        top: 28px;
-        right: 6px;
-        cursor: default;
-    }
-    .info span {
-        color: gold;
-        border: dashed gold 1px;
-        background-color: rgb(255, 248, 205);
-        padding: 0.1rem 0.5rem;
-        border-radius: 20px;
-        font-weight: bold;
-    }
     .checked {
         position: absolute;
         top: 25px;
@@ -213,4 +213,31 @@
     p {
         padding: 0;
     }
+    /* ----------details---------- */
+    .example {
+        background-color: #facc76;
+        padding: 0.5rem;
+        border: 2px solid #bdbdbd;
+        border-radius: 8px;
+        margin: 0.5rem !important;
+        max-height: 100px;
+        overflow-y: auto;
+    }
+    .example p {
+        padding: 0;
+    }
+    .example p.ch {
+        line-height: 1rem;
+    }
+    .example p.en {
+        border-top: dashed 1px #9c9c9c;
+        padding-top: 0.6rem;
+        font-weight: bold;
+        font-style: italic;
+    }
+    .example p em {
+        color: #666;
+        font-size: 1rem;
+    }
+    /* ----------details---------- */
 </style>
