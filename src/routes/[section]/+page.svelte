@@ -12,21 +12,22 @@
     let sortBy = "date";
     let sortDirection = "desc";
     let searchTerm = "";
-    $: loadGroups($page.params.section);
+    $: load($page.params.section);
 
     async function filter() {
         groups = await VocabDB.load($page.params.section);
-
-        groups.forEach((group) => {
-            group.words = group.words.filter((word) => {
-                if (!searchTerm) return true;
-                const term = searchTerm.toLowerCase();
-                return word.english?.toLowerCase().includes(term);
-            });
-        });
+        if (!searchTerm) return;
+        const term = searchTerm.toLowerCase();
+        groups = groups.map((group) => ({
+            ...group,
+            words: group.words.filter((word) => word.usages && word.usages.some((usage) => (usage.english && usage.english.toLowerCase().includes(term)) || (usage.examples && usage.examples.some((example) => example.english && example.english.toLowerCase().includes(term))))),
+        }));
     }
 
-    async function loadGroups(section) {
+    function save() {
+        if (!term) return;
+    }
+    async function load(section) {
         if (!section) return;
         loading = true;
 
@@ -34,11 +35,13 @@
             groups = await VocabDB.load(section);
             groups.forEach((group) => {
                 group.words.forEach((word) => {
-                    word.chinese = word.chinese.replaceAll("<i>", '<i style="color:#666; font-size:1rem; font-family:calibri;font-weight:normal;">');
-                    word.pinyin = word.pinyin.replaceAll("<i>", '<i style="color:#666; font-size:1rem; font-family:calibri;font-weight:normal;">');
-                    word.examples.forEach((example) => {
-                        example.pinyin = example.pinyin.replaceAll("<b>", '<b style="color:red;font-weight:normal;">');
-                        example.literal = example.literal.replaceAll("<b>", '<b style="color:red;font-weight:normal;">');
+                    word.usages.forEach((usage) => {
+                        usage.chinese = usage.chinese.replaceAll("<i>", '<i style="color:#666; font-size:1rem; font-family:calibri;font-weight:normal;">');
+                        usage.pinyin = usage.pinyin.replaceAll("<i>", '<i style="color:#666; font-size:1rem; font-family:calibri;font-weight:normal;">');
+                        usage.examples.forEach((example) => {
+                            example.pinyin = example.pinyin.replaceAll("<b>", '<b style="color:red;font-weight:normal;">');
+                            example.literal = example.literal.replaceAll("<b>", '<b style="color:red;font-weight:normal;">');
+                        });
                     });
                 });
             });
@@ -67,6 +70,7 @@
             groupName: prompt("Group name"),
             words: [],
         });
+        groups = groups;
     }
 
     async function removeGroup(groupIndex) {
@@ -94,7 +98,6 @@
         }
         event.target.value = "";
     }
-
     function importVocabulary(file) {
         return new Promise((resolve, reject) => {
             const reader = new FileReader();

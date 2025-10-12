@@ -16,7 +16,6 @@
                 {group.groupName}
                 <span class="word-count">({group.words.length} words)</span>
             </h3>
-
             <div class="group-actions">
                 <button style="margin-right: 10px;" onclick={() => groupBack(groupIndex)}>&larr;</button>
                 <button style="margin-right: 10px;" onclick={() => groupForward(groupIndex)}>&rarr;</button>
@@ -50,21 +49,21 @@
                     currentWord = group.words[i];
                     showModal = true;
                 }}>
-                <div class={"type " + word.type}>{word.type}</div>
+                <div class={"type " + word.usages[0].type}>{word.usages[0].type}</div>
                 <div class="checked">
-                    <input type="checkbox" checked={word.checked} onchange={() => (word.checked = !word.checked)} />
+                    <input type="checkbox" checked={word.usages[0].checked} onchange={() => (word.checked = !word.checked)} />
                 </div>
-                <h2>{@html word.chinese}</h2>
-                <p class="pinyin">{@html word.pinyin}</p>
-                <p>{@html word.english}</p>
+                <h2>{@html word.usages[0].chinese}</h2>
+                <p class="pinyin">{@html word.usages[0].pinyin}</p>
+                <p>{@html word.usages[0].english}</p>
                 <!-- -----details------- -->
-                {#if word.examples.length > 0}
+                {#if word.usages[0].examples.length > 0}
                     <div class="example">
                         <p class="ch">
-                            {@html word.examples[0].pinyin}<br />
-                            <em>{@html word.examples[0].literal}</em>
+                            {@html word.usages[0].examples[0].pinyin}<br />
+                            <em>{@html word.usages[0].examples[0].literal}</em>
                         </p>
-                        <p class="en">{word.examples[0].english}</p>
+                        <p class="en">{word.usages[0].examples[0].english}</p>
                     </div>
                 {/if}
                 <!-- -----details------- -->

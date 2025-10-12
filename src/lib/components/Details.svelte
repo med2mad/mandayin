@@ -2,15 +2,14 @@
     import { createEventDispatcher } from "svelte";
     import { scale } from "svelte/transition";
 
-    const dispatch = createEventDispatcher();
-
     export let showModal = false,
         word;
+
+    const dispatch = createEventDispatcher();
 
     function close() {
         dispatch("close");
     }
-
     function handleBackdropClick(event) {
         if (event.target === event.currentTarget) {
             close();
@@ -23,24 +22,33 @@
     <!-- svelte-ignore a11y_no_static_element_interactions -->
     <div class="modal-backdrop" onclick={handleBackdropClick}>
         <div transition:scale={{ duration: 150 }} class="modal">
-            <div class="modal-header">
-                <h2>{@html word.chinese}</h2>
-                <p class="pinyin">{@html word.pinyin}</p>
-                <button onclick={close} class="remove-group">×</button>
+            <div class="close-box">
+                <p>Usages : {word.usages.length}</p>
+                <button onclick={close} class="close">×</button>
             </div>
-            <div class="modal-content">
-                <p>{word.type}</p>
-                <p>{word.info}</p>
-                {#each word.examples as example (example.id)}
-                    <div class="example">
-                        <p class="ch">
-                            {@html example.pinyin}<br />
-                            <em>{@html example.literal}</em>
-                        </p>
-                        <p class="en">{example.english}</p>
+
+            {#each word.usages as usage (usage.id)}
+                <div class="modal-header">
+                    <h2>{@html usage.chinese}</h2>
+                    <p class="pinyin">{@html usage.pinyin}</p>
+                    <p class="type">{usage.type}</p>
+                </div>
+                <div class="modal-content">
+                    <div class="info">
+                        <p>{usage.english}</p>
+                        <p style="color:chocolate">{usage.info}</p>
                     </div>
-                {/each}
-            </div>
+                    {#each usage.examples as example (example.id)}
+                        <div class="example">
+                            <p class="ch">
+                                {@html example.pinyin}<br />
+                                <em>{@html example.literal}</em>
+                            </p>
+                            <p class="en">{example.english}</p>
+                        </div>
+                    {/each}
+                </div>
+            {/each}
         </div>
     </div>
 {/if}
@@ -75,25 +83,39 @@
         justify-content: space-between;
         align-items: center;
     }
-    .remove-group {
+    .close-box {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 10px;
+        border-bottom: 1px solid gray;
+    }
+    .info {
+        display: flex;
+        justify-content: space-between;
+    }
+    .modal-header .type {
+        color: rgb(2, 182, 182);
+        text-decoration: underline;
+    }
+    .close {
         background: #ff4444;
         color: white;
         border: none;
         border-radius: 50%;
         width: 24px;
         height: 24px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
         cursor: pointer;
         font-size: 16px;
         padding: 0;
     }
-    .remove-group:hover {
+    .close:hover {
         background: #cc0000;
     }
     .modal-content {
         padding: 20px;
+        padding-top: 0;
+        border-bottom: 1px solid gray;
     }
     /* ----------content----------- */
     h2 {
