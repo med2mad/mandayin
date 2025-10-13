@@ -29,15 +29,17 @@
 
             {#each word.usages as usage (usage.id)}
                 <div class="modal-header">
-                    <h2>{@html usage.chinese}</h2>
-                    <p class="pinyin">{@html usage.pinyin}</p>
+                    <div class="chinese">
+                        <h2>{@html usage.chinese}</h2>
+                        <p class="pinyin">{@html usage.pinyin}</p>
+                    </div>
+                    <p class="english">
+                        {@html usage.english}<br />
+                        <span class="info">{@html usage.info}</span>
+                    </p>
                     <p class="type">{usage.type}</p>
                 </div>
-                <div class="modal-content">
-                    <div class="info">
-                        <p>{usage.english}</p>
-                        <p style="color:chocolate">{usage.info}</p>
-                    </div>
+                <div class="modal-body">
                     {#each usage.examples as example (example.id)}
                         <div class="example">
                             <p class="ch">
@@ -75,14 +77,6 @@
         max-height: 80vh;
         overflow-y: auto;
     }
-    .modal-header {
-        text-align: right;
-        padding: 20px;
-        border-bottom: 1px solid #eee;
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-    }
     .close-box {
         display: flex;
         justify-content: space-between;
@@ -90,14 +84,7 @@
         padding: 10px;
         border-bottom: 1px solid gray;
     }
-    .info {
-        display: flex;
-        justify-content: space-between;
-    }
-    .modal-header .type {
-        color: rgb(2, 182, 182);
-        text-decoration: underline;
-    }
+
     .close {
         background: #ff4444;
         color: white;
@@ -112,22 +99,48 @@
     .close:hover {
         background: #cc0000;
     }
-    .modal-content {
-        padding: 20px;
-        padding-top: 0;
-        border-bottom: 1px solid gray;
+    .modal-header {
+        padding: 20px 20px 0 20px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
     }
-    /* ----------content----------- */
-    h2 {
+    .modal-header .chinese {
+        display: flex;
+        flex-direction: column;
+    }
+    .modal-header .chinese h2 {
         margin: 0;
         color: #2c3e50;
         font-size: 3rem;
         font-family: "Songti SC", "SimSun", "Songti TC", "Noto Serif CJK SC", serif;
+        text-align: center;
     }
-    .pinyin {
+    .modal-header .chinese .pinyin {
         font-weight: bold;
         color: #2c3e50;
+        text-align: center;
+        margin: 0;
     }
+    .modal-header p {
+        text-align: center;
+    }
+    .modal-header p .info {
+        color: chocolate;
+        font-size: 1rem;
+    }
+    .modal-header .type {
+        color: rgb(2, 182, 182);
+        text-decoration: underline;
+    }
+    .modal-body {
+        padding: 20px;
+        padding-top: 0;
+        border-bottom: 1px solid gray;
+    }
+
+    /* ----------content----------- */
+
     .example {
         background-color: #facc76;
         padding: 0.5rem;
