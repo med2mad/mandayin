@@ -6,7 +6,7 @@
     let currentWord;
     let showModal = false;
 
-    export let group, cards, groupIndex, ungrouped, groupBack, groupForward, removeGroup;
+    export let group, cards, groupIndex, ungrouped, groupBack, groupForward, removeGroup, removeWord;
 </script>
 
 <div class={"group" + (ungrouped ? " ungrouped" : " grouped")}>
@@ -19,7 +19,7 @@
             <div class="group-actions">
                 <button style="margin-right: 10px;" onclick={() => groupBack(groupIndex)}>&larr;</button>
                 <button style="margin-right: 10px;" onclick={() => groupForward(groupIndex)}>&rarr;</button>
-                <button class="remove-group" onclick={() => removeGroup(groupIndex)}>×</button>
+                <button class="close-button" onclick={() => removeGroup(groupIndex)}>×</button>
             </div>
         </div>
     {:else}
@@ -38,41 +38,48 @@
         onfinalize={(e) => {
             group.words = e.detail.items;
         }}>
-        {#each group.words as word, i (word.id)}
+        {#each group.words as word, wordIndex (word.id)}
             <!-- svelte-ignore a11y_click_events_have_key_events -->
             <!-- svelte-ignore a11y_no_static_element_interactions -->
             <div
                 class="word"
                 style:width={cards ? "" : "100%"}
                 animate:flip={{ duration: 300 }}
-                onclick={async () => {
-                    currentWord = group.words[i];
+                onclick={() => {
+                    currentWord = group.words[wordIndex];
                     showModal = true;
                 }}>
-                <div class={"type " + word.usages[0].type}>{word.usages[0].type}</div>
-                <div class="checked">
-                    <input type="checkbox" checked={word.usages[0].checked} onchange={() => (word.checked = !word.checked)} />
+                <div class={"type " + word.usages[0].type}>
+                    <div>{word.usages[0].type}</div>
+                    <button
+                        style="background-color:rgb(0,0,0,0); color:pink"
+                        onclick={(e) => {
+                            e.stopPropagation();
+                            removeWord(groupIndex, wordIndex);
+                        }}>×</button>
                 </div>
-                <h2>{@html word.usages[0].chinese}</h2>
-                <p class="pinyin">{@html word.usages[0].pinyin}</p>
-                <p>{@html word.usages[0].english}</p>
-                <!-- -----details------- -->
-                {#if word.usages[0].examples.length > 0}
-                    <div class="example">
-                        <p class="ch">
-                            {@html word.usages[0].examples[0].pinyin}<br />
-                            <em>{@html word.usages[0].examples[0].literal}</em>
-                        </p>
-                        <p class="en">{word.usages[0].examples[0].english}</p>
-                    </div>
-                {/if}
-                <!-- -----details------- -->
+                <div>
+                    <h2>{@html word.usages[0].chinese}</h2>
+                    <p class="pinyin">{@html word.usages[0].pinyin}</p>
+                    <p>{@html word.usages[0].english}</p>
+                    <!-- -----details------- -->
+                    {#if word.usages[0].examples.length > 0}
+                        <div class="example">
+                            <p class="ch">
+                                {@html word.usages[0].examples[0].pinyin}<br />
+                                <em>{@html word.usages[0].examples[0].literal}</em>
+                            </p>
+                            <p class="en">{word.usages[0].examples[0].english}</p>
+                        </div>
+                    {/if}
+                    <!-- -----details------- -->
+                </div>
             </div>
         {/each}
     </div>
 </div>
 
-<Details word={currentWord} {showModal} on:close={() => (showModal = false)} />
+<Details word={currentWord} {showModal} on:cls={() => (showModal = false)} />
 
 <style>
     .group {
@@ -114,21 +121,18 @@
         color: #666;
         font-size: 0.9em;
     }
-    .remove-group {
+    .close-button {
         background: #ff4444;
         color: white;
         border: none;
         border-radius: 50%;
         width: 24px;
         height: 24px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
         cursor: pointer;
         font-size: 16px;
         padding: 0;
     }
-    .remove-group:hover {
+    .close-button:hover {
         background: #cc0000;
     }
     .group-body {
@@ -154,14 +158,17 @@
         text-align: center;
         box-shadow: 0 0 5px #838383;
         min-width: 100px;
+        min-height: 100px;
         margin: 0 auto 5px auto;
-        position: relative;
         padding-bottom: 1px;
     }
     .word .type {
         border-radius: 8px 8px 0 0;
         color: #adadad;
         font-size: 1.2rem;
+        display: flex;
+        justify-content: space-between;
+        padding: 4px;
     }
     .word .Adjectif {
         background-color: rgb(72, 161, 72);
@@ -187,6 +194,9 @@
     .word .Character {
         background-color: rgb(139, 155, 81);
     }
+    .word ._ {
+        background-color: #adadad;
+    }
     .word h2 {
         margin: 0;
         color: #2c3e50;
@@ -202,12 +212,6 @@
         margin: 0.4rem 0;
         padding: 0 0.5rem;
         font-family: "calibri", sans-serif;
-    }
-    .checked {
-        position: absolute;
-        top: 25px;
-        left: 3px;
-        cursor: default;
     }
     p {
         padding: 0;

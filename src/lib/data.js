@@ -6,7 +6,6 @@ export const initialData = {
             words: [
                 {
                     id: 1,
-                    checked: true,
                     createdAt: "2025-08-26T20:58:52.451Z",
                     usages: [
                         {
@@ -53,7 +52,6 @@ export const initialData = {
                 },
                 {
                     id: 2,
-                    checked: true,
                     createdAt: "2025-09-26T20:58:52.451Z",
                     usages: [
                         {
@@ -70,7 +68,6 @@ export const initialData = {
                 },
                 {
                     id: 4,
-                    checked: true,
                     createdAt: "2025-07-26T20:58:52.451Z",
                     usages: [
                         {
@@ -87,7 +84,6 @@ export const initialData = {
                 },
                 {
                     id: 5,
-                    checked: true,
                     createdAt: "2025-06-26T20:58:52.451Z",
                     usages: [
                         {
@@ -117,7 +113,6 @@ export const initialData = {
             words: [
                 {
                     id: 7,
-                    checked: true,
                     createdAt: "2025-05-26T20:58:52.451Z",
                     usages: [
                         {
@@ -141,16 +136,15 @@ export const initialData = {
                 },
                 {
                     id: 9,
-                    checked: true,
                     createdAt: "2025-03-26T20:58:52.451Z",
                     usages: [
                         {
                             id: 1,
                             chinese: "很<i>+Adj.</i>",
                             pinyin: "hěn <i>+Adj.</i>",
-                            english: "Very/Quite/Rather",
+                            english: "Really/Quite/Rather",
                             type: "Adverb",
-                            info: "for descriptions",
+                            info: "For descriptions",
                             checked: true,
                             examples: [
                                 {
@@ -164,8 +158,30 @@ export const initialData = {
                     ]
                 },
                 {
+                    id: 140,
+                    createdAt: "2023-09-26T20:58:52.451Z",
+                    usages: [
+                        {
+                            id: 1,
+                            chinese: "不<i>+Adj.</i>",
+                            pinyin: "bù <i>+Adj.</i>",
+                            english: "Not really",
+                            type: "Adverb",
+                            info: "Negate descriptions",
+                            checked: true,
+                            examples: [
+                                {
+                                    id: 26,
+                                    pinyin: "dàn gāo <b>bù</b> hǎo chī",
+                                    literal: "cake <b>not</b> good to eat",
+                                    english: "Cake is not delicious",
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
                     id: 10,
-                    checked: true,
                     createdAt: "2025-02-26T20:58:52.451Z",
                     usages: [
                         {
@@ -195,7 +211,6 @@ export const initialData = {
             words: [
                 {
                     id: 12,
-                    checked: true,
                     createdAt: "2025-01-26T20:58:52.451Z",
                     usages: [
                         {
@@ -219,7 +234,6 @@ export const initialData = {
                 },
                 {
                     id: 13,
-                    checked: true,
                     createdAt: "2024-09-26T20:58:52.451Z",
                     usages: [
                         {
@@ -243,7 +257,6 @@ export const initialData = {
                 },
                 {
                     id: 14,
-                    checked: true,
                     createdAt: "2023-09-26T20:58:52.451Z",
                     usages: [
                         {
@@ -267,7 +280,6 @@ export const initialData = {
                 },
                 {
                     id: 15,
-                    checked: true,
                     createdAt: "2022-09-26T20:58:52.451Z",
                     usages: [
                         {
@@ -291,7 +303,6 @@ export const initialData = {
                 },
                 {
                     id: 28,
-                    checked: true,
                     createdAt: "2022-09-26T20:58:52.451Z",
                     usages: [
                         {
@@ -315,7 +326,6 @@ export const initialData = {
                 },
                 {
                     id: 140,
-                    checked: true,
                     createdAt: "2023-09-26T20:58:52.451Z",
                     usages: [
                         {
@@ -339,7 +349,6 @@ export const initialData = {
                 },
                 {
                     id: 1400,
-                    checked: true,
                     createdAt: "2023-09-26T20:58:52.451Z",
                     usages: [
                         {
@@ -372,7 +381,6 @@ export const initialData = {
             words: [
                 {
                     id: 2,
-                    checked: true,
                     createdAt: "2025-09-26T20:58:52.451Z",
                     usages: [
                         {
@@ -396,7 +404,6 @@ export const initialData = {
                 },
                 {
                     id: 3,
-                    checked: true,
                     createdAt: "2025-09-26T20:58:51.451Z",
                     usages: [
                         {
@@ -420,7 +427,6 @@ export const initialData = {
                 },
                 {
                     id: 4,
-                    checked: true,
                     createdAt: "2025-09-26T20:58:50.451Z",
                     usages: [
                         {
@@ -444,7 +450,6 @@ export const initialData = {
                 },
                 {
                     id: 5,
-                    checked: true,
                     createdAt: "2025-09-26T20:58:49.451Z",
                     usages: [
                         {
@@ -468,7 +473,6 @@ export const initialData = {
                 },
                 {
                     id: 6,
-                    checked: true,
                     createdAt: "2025-09-26T20:58:48.451Z",
                     usages: [
                         {
@@ -492,7 +496,6 @@ export const initialData = {
                 },
                 {
                     id: 7,
-                    checked: true,
                     createdAt: "2025-09-26T20:58:48.451Z",
                     usages: [
                         {
@@ -516,7 +519,6 @@ export const initialData = {
                 },
                 {
                     id: 8,
-                    checked: true,
                     createdAt: "2025-09-26T20:58:47.451Z",
                     usages: [
                         {
@@ -540,7 +542,6 @@ export const initialData = {
                 },
                 {
                     id: 9,
-                    checked: true,
                     createdAt: "2025-09-26T20:58:46.451Z",
                     usages: [
                         {
@@ -564,7 +565,6 @@ export const initialData = {
                 },
                 {
                     id: 30,
-                    checked: true,
                     createdAt: "2022-09-26T20:58:52.451Z",
                     usages: [
                         {
@@ -588,7 +588,6 @@ export const initialData = {
                 },
                 {
                     id: 10,
-                    checked: true,
                     createdAt: "2025-09-26T20:58:45.451Z",
                     usages: [
                         {
@@ -612,7 +611,6 @@ export const initialData = {
                 },
                 {
                     id: 11,
-                    checked: true,
                     createdAt: "2025-09-26T20:58:44.451Z",
                     usages: [
                         {
@@ -636,7 +634,6 @@ export const initialData = {
                 },
                 {
                     id: 38,
-                    checked: true,
                     createdAt: "2025-09-26T20:58:44.451Z",
                     usages: [
                         {
@@ -660,7 +657,6 @@ export const initialData = {
                 },
                 {
                     id: 40,
-                    checked: true,
                     createdAt: "2025-09-26T20:58:44.451Z",
                     usages: [
                         {
@@ -684,7 +680,6 @@ export const initialData = {
                 },
                 {
                     id: 42,
-                    checked: true,
                     createdAt: "2025-09-26T20:58:44.451Z",
                     usages: [
                         {
@@ -708,7 +703,6 @@ export const initialData = {
                 },
                 {
                     id: 44,
-                    checked: true,
                     createdAt: "2025-09-26T20:58:44.451Z",
                     usages: [
                         {
@@ -746,7 +740,6 @@ export const initialData = {
             words: [
                 {
                     id: 1,
-                    checked: true,
                     createdAt: "2025-09-26T20:55:52.451Z",
                     usages: [
                         {
@@ -763,7 +756,6 @@ export const initialData = {
                 },
                 {
                     id: 2,
-                    checked: true,
                     createdAt: "2025-09-26T20:55:52.451Z",
                     usages: [
                         {
@@ -780,7 +772,6 @@ export const initialData = {
                 },
                 {
                     id: 3,
-                    checked: true,
                     createdAt: "2025-09-26T20:55:52.451Z",
                     usages: [
                         {
@@ -797,7 +788,6 @@ export const initialData = {
                 },
                 {
                     id: 4,
-                    checked: true,
                     createdAt: "2025-09-26T20:55:52.451Z",
                     usages: [
                         {
@@ -814,7 +804,6 @@ export const initialData = {
                 },
                 {
                     id: 5,
-                    checked: true,
                     createdAt: "2025-09-26T20:55:52.451Z",
                     usages: [
                         {
@@ -831,7 +820,6 @@ export const initialData = {
                 },
                 {
                     id: 6,
-                    checked: true,
                     createdAt: "2025-09-26T20:55:52.451Z",
                     usages: [
                         {
@@ -848,7 +836,6 @@ export const initialData = {
                 },
                 {
                     id: 7,
-                    checked: true,
                     createdAt: "2025-09-26T20:55:52.451Z",
                     usages: [
                         {
@@ -865,7 +852,6 @@ export const initialData = {
                 },
                 {
                     id: 8,
-                    checked: true,
                     createdAt: "2025-09-26T20:55:52.451Z",
                     usages: [
                         {
@@ -882,7 +868,6 @@ export const initialData = {
                 },
                 {
                     id: 9,
-                    checked: true,
                     createdAt: "2025-09-26T20:55:52.451Z",
                     usages: [
                         {
@@ -899,7 +884,6 @@ export const initialData = {
                 },
                 {
                     id: 10,
-                    checked: true,
                     createdAt: "2025-09-26T20:55:52.451Z",
                     usages: [
                         {
@@ -916,7 +900,6 @@ export const initialData = {
                 },
                 {
                     id: 11,
-                    checked: true,
                     createdAt: "2025-09-26T20:55:52.451Z",
                     usages: [
                         {
@@ -933,7 +916,6 @@ export const initialData = {
                 },
                 {
                     id: 12,
-                    checked: true,
                     createdAt: "2025-09-26T20:55:52.451Z",
                     usages: [
                         {
@@ -950,7 +932,6 @@ export const initialData = {
                 },
                 {
                     id: 13,
-                    checked: true,
                     createdAt: "2025-09-26T20:55:52.451Z",
                     usages: [
                         {
@@ -967,7 +948,6 @@ export const initialData = {
                 },
                 {
                     id: 100,
-                    checked: true,
                     createdAt: "2025-09-26T20:55:52.451Z",
                     usages: [
                         {

@@ -45,7 +45,6 @@
                     });
                 });
             });
-
             loading = false;
         }
     }
@@ -62,6 +61,13 @@
                 return sortDirection === "asc" ? result : -result;
             });
         });
+    }
+
+    async function removeWord(groupIndex, wordIndex) {
+        if (confirm(`Remove the word ?`)) {
+            groups[groupIndex].words.splice(wordIndex, 1);
+        }
+        groups = groups;
     }
 
     function addGroup() {
@@ -109,7 +115,29 @@
             reader.readAsText(file);
         });
     }
+    function add() {
+        groups[groups.length - 1].words.unshift({
+            id: groups[groups.length - 1].words.length,
+            checked: false,
+            createdAt: "2025-09-26T20:58:52.451Z",
+            usages: [
+                {
+                    id: 0,
+                    chinese: "",
+                    pinyin: "",
+                    english: "",
+                    type: "_",
+                    info: "",
+                    checked: false,
+                    examples: [],
+                },
+            ],
+        });
+        groups = groups;
+    }
 </script>
+
+<button onclick={add}>Add</button>
 
 <div class="data-management">
     <div class="data-actions">
@@ -156,11 +184,11 @@
         }}>
         {#each groups as group, groupIndex (group.id)}
             {#if groupIndex != groups.length - 1}
-                <Group bind:group={groups[groupIndex]} {groupIndex} {cards} {groupForward} {groupBack} {removeGroup} ungrouped={false} />
+                <Group bind:group={groups[groupIndex]} {groupIndex} {cards} {groupForward} {groupBack} {removeGroup} {removeWord} ungrouped={false} />
             {/if}
         {/each}
     </div>
-    <Group bind:group={groups[groups.length - 1]} groupIndex={groups.length - 1} {cards} {groupForward} {groupBack} {removeGroup} ungrouped={true} />
+    <Group bind:group={groups[groups.length - 1]} groupIndex={groups.length - 1} {cards} {groupForward} {groupBack} {removeGroup} {removeWord} ungrouped={true} />
 {/if}
 
 <style>

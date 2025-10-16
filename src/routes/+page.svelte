@@ -54,67 +54,34 @@
         <div class="form-section">
             <div class="form-group">
                 <label for="chineseWord">Chinese Word/Character:</label>
-                <input
-                    id="chineseWord"
-                    type="text"
-                    value={chineseWord}
-                    on:input={(e) => (chineseWord = e.target.value)}
-                    placeholder="你好"
-                    required />
+                <input id="chineseWord" type="text" value={chineseWord} on:input={(e) => (chineseWord = e.target.value)} placeholder="你好" required />
             </div>
 
             <div class="form-group">
                 <label for="pinyin">Pinyin:</label>
-                <input
-                    id="pinyin"
-                    type="text"
-                    value={pinyin}
-                    on:input={(e) => (pinyin = e.target.value)}
-                    placeholder="nǐ hǎo"
-                    required />
+                <input id="pinyin" type="text" value={pinyin} on:input={(e) => (pinyin = e.target.value)} placeholder="nǐ hǎo" required />
             </div>
 
             <div class="form-group">
                 <label for="englishMeaning">English Meaning:</label>
-                <input
-                    id="englishMeaning"
-                    type="text"
-                    value={englishMeaning}
-                    on:input={(e) => (englishMeaning = e.target.value)}
-                    placeholder="Hello"
-                    required />
+                <input id="englishMeaning" type="text" value={englishMeaning} on:input={(e) => (englishMeaning = e.target.value)} placeholder="Hello" required />
             </div>
         </div>
 
         <div class="form-section">
             <div class="form-group">
                 <label for="examplePinyin">Example Sentence (Pinyin):</label>
-                <input
-                    id="examplePinyin"
-                    type="text"
-                    value={examplePinyin}
-                    on:input={(e) => (examplePinyin = e.target.value)}
-                    placeholder="nǐ hǎo ma?" />
+                <input id="examplePinyin" type="text" value={examplePinyin} on:input={(e) => (examplePinyin = e.target.value)} placeholder="nǐ hǎo ma?" />
             </div>
 
             <div class="form-group">
                 <label for="exampleEnglish">Example Sentence (English):</label>
-                <input
-                    id="exampleEnglish"
-                    type="text"
-                    value={exampleEnglish}
-                    on:input={(e) => (exampleEnglish = e.target.value)}
-                    placeholder="How are you?" />
+                <input id="exampleEnglish" type="text" value={exampleEnglish} on:input={(e) => (exampleEnglish = e.target.value)} placeholder="How are you?" />
             </div>
 
             <div class="form-group">
                 <label for="wordForWordTranslation">Word-for-Word Translation:</label>
-                <input
-                    id="wordForWordTranslation"
-                    type="text"
-                    value={wordForWordTranslation}
-                    on:input={(e) => (wordForWordTranslation = e.target.value)}
-                    placeholder="you good ?" />
+                <input id="wordForWordTranslation" type="text" value={wordForWordTranslation} on:input={(e) => (wordForWordTranslation = e.target.value)} placeholder="you good ?" />
             </div>
         </div>
 

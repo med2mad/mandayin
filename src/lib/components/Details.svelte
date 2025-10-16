@@ -8,7 +8,7 @@
     const dispatch = createEventDispatcher();
 
     function close() {
-        dispatch("close");
+        dispatch("cls");
     }
     function handleBackdropClick(event) {
         if (event.target === event.currentTarget) {
@@ -37,7 +37,9 @@
                         {@html usage.english}<br />
                         <span class="info">{@html usage.info}</span>
                     </p>
-                    <p class="type">{usage.type}</p>
+                    <p class="type">
+                        {usage.type}
+                    </p>
                 </div>
                 <div class="modal-body">
                     {#each usage.examples as example (example.id)}
@@ -49,6 +51,9 @@
                             <p class="en">{example.english}</p>
                         </div>
                     {/each}
+                    <div style="text-align: center;">
+                        <label for="check" style="font-family:calibri, sans-serif;">Learned</label><input id="check" type="checkbox" checked={usage.checked} onchange={() => (usage.checked = !usage.checked)} />
+                    </div>
                 </div>
             {/each}
         </div>
