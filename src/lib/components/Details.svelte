@@ -8,7 +8,7 @@
     const dispatch = createEventDispatcher();
 
     function close() {
-        dispatch("cls");
+        dispatch("close");
     }
     function handleBackdropClick(event) {
         if (event.target === event.currentTarget) {

@@ -2,11 +2,13 @@
     import { dndzone } from "svelte-dnd-action";
     import { flip } from "svelte/animate";
     import Details from "$lib/components/Details.svelte";
+    import EditWord from "$lib/components/EditWord.svelte";
 
     let currentWord;
     let showModal = false;
+    let showEditModal = false;
 
-    export let group, cards, groupIndex, ungrouped, groupBack, groupForward, removeGroup, removeWord;
+    export let group, cards, groupIndex, ungrouped, groupBack, groupForward, removeGroup;
 </script>
 
 <div class={"group" + (ungrouped ? " ungrouped" : " grouped")}>
@@ -55,8 +57,9 @@
                         style="background-color:rgb(0,0,0,0); color:pink"
                         onclick={(e) => {
                             e.stopPropagation();
-                            removeWord(groupIndex, wordIndex);
-                        }}>×</button>
+                            currentWord = group.words[wordIndex];
+                            showEditModal = true;
+                        }}>o</button>
                 </div>
                 <div>
                     <h2>{@html word.usages[0].chinese}</h2>
@@ -79,7 +82,8 @@
     </div>
 </div>
 
-<Details word={currentWord} {showModal} on:cls={() => (showModal = false)} />
+<Details word={currentWord} {showModal} on:close={() => (showModal = false)} />
+<EditWord word={currentWord} {showEditModal} on:close={() => (showEditModal = false)} />
 
 <style>
     .group {
